@@ -11,10 +11,10 @@
     <property name="show_sql">true</property>
     <property name="format_sql">true</property>
     <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
-    <mapping class="murlov.tennis_scoreboard.hibernate.Player"/>
-    <mapping class="murlov.tennis_scoreboard.hibernate.Match"/>
+    <mapping class="murlov.tennis_scoreboard.model.Player"/>
+    <mapping class="murlov.tennis_scoreboard.model.Match"/>
 
     <!-- DB schema will be updated if needed -->
-    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+    <!-- <property name="model.hbm2ddl.auto">update</property> -->
   </session-factory>
 </hibernate-configuration>

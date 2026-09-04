@@ -4,8 +4,8 @@ import murlov.tennis_scoreboard.dao.MatchDao;
 import murlov.tennis_scoreboard.dao.PlayerDao;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
 import murlov.tennis_scoreboard.exception.NotFoundException;
-import murlov.tennis_scoreboard.hibernate.Match;
-import murlov.tennis_scoreboard.hibernate.Player;
+import murlov.tennis_scoreboard.model.Match;
+import murlov.tennis_scoreboard.model.Player;
 
 public class MatchService {
 

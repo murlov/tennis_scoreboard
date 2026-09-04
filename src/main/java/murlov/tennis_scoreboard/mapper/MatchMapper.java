@@ -1,7 +1,7 @@
 package murlov.tennis_scoreboard.mapper;
 
 import murlov.tennis_scoreboard.dto.MatchResponseDto;
-import murlov.tennis_scoreboard.hibernate.Match;
+import murlov.tennis_scoreboard.model.Match;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

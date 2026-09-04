@@ -5,7 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
-import murlov.tennis_scoreboard.hibernate.Match;
+import murlov.tennis_scoreboard.model.Match;
 import murlov.tennis_scoreboard.mapper.MatchMapper;
 import murlov.tennis_scoreboard.service.MatchService;
 

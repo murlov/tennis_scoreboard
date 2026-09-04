@@ -1,4 +1,4 @@
-package murlov.tennis_scoreboard.hibernate;
+package murlov.tennis_scoreboard.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -14,8 +14,4 @@ public class Player {
     private Long id;
 
     private String name;
-
-    public Player(String name) {
-        this.name = name;
-    }
 }

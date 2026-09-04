@@ -1,4 +1,4 @@
-package murlov.tennis_scoreboard.hibernate;
+package murlov.tennis_scoreboard.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

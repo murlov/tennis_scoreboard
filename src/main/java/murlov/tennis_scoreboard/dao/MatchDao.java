@@ -1,6 +1,6 @@
 package murlov.tennis_scoreboard.dao;
 
-import murlov.tennis_scoreboard.hibernate.Match;
+import murlov.tennis_scoreboard.model.Match;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
