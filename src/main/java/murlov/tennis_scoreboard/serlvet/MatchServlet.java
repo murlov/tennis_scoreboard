@@ -12,7 +12,7 @@ import murlov.tennis_scoreboard.service.MatchService;
 import java.io.IOException;
 
 @WebServlet("/matches")
-public class MatchServlet extends HttpServlet {
+public class MatchServlet extends BaseServlet {
 
     private MatchService matchService;
     private ObjectMapper objectMapper;
@@ -54,7 +54,6 @@ public class MatchServlet extends HttpServlet {
                 .readValue(request.getReader(), MatchRequestDto.class);
         Match match = matchService.save(matchRequestDto);
 
-        response.setStatus(HttpServletResponse.SC_CREATED);
-        objectMapper.writeValue(response.getWriter(), MatchMapper.INSTANCE.toDto(match));
+        sendResponse(response, HttpServletResponse.SC_CREATED, MatchMapper.INSTANCE.toDto(match));
     }
 }
