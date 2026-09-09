@@ -5,8 +5,6 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
-import murlov.tennis_scoreboard.model.Match;
-import murlov.tennis_scoreboard.mapper.MatchMapper;
 import murlov.tennis_scoreboard.service.MatchService;
 
 import java.io.IOException;
@@ -52,8 +50,7 @@ public class MatchServlet extends BaseServlet {
 
         MatchRequestDto matchRequestDto = objectMapper
                 .readValue(request.getReader(), MatchRequestDto.class);
-        Match match = matchService.save(matchRequestDto);
 
-        sendResponse(response, HttpServletResponse.SC_CREATED, MatchMapper.INSTANCE.toDto(match));
+        sendResponse(response, HttpServletResponse.SC_CREATED, matchService.createMatch(matchRequestDto));
     }
 }

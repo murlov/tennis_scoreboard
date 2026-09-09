@@ -5,9 +5,9 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
-import murlov.tennis_scoreboard.dao.MatchDao;
 import murlov.tennis_scoreboard.dao.PlayerDao;
 import murlov.tennis_scoreboard.service.MatchService;
+import murlov.tennis_scoreboard.storage.UnfinishedMatchesStorage;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -19,6 +19,8 @@ public class AppContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
+        UnfinishedMatchesStorage unfinishedMatchesStorage = new UnfinishedMatchesStorage();
+
         ObjectMapper objectMapper = new ObjectMapper();
 
         sessionFactory = new Configuration()
@@ -26,16 +28,17 @@ public class AppContextListener implements ServletContextListener {
                 .buildSessionFactory();
 
         PlayerDao playerDao = new PlayerDao(sessionFactory);
-        MatchDao matchDao = new MatchDao(sessionFactory);
 
         MatchService matchService = new MatchService(
-                matchDao,
-                playerDao
+                playerDao,
+                unfinishedMatchesStorage
         );
 
         ServletContext context = sce.getServletContext();
 
         context.setAttribute("objectMapper", objectMapper);
+
+        context.setAttribute("unfinishedMatchStorage", unfinishedMatchesStorage);
 
         context.setAttribute("matchService", matchService);
     }

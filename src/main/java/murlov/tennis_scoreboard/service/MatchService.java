@@ -1,48 +1,44 @@
 package murlov.tennis_scoreboard.service;
 
-import murlov.tennis_scoreboard.dao.MatchDao;
 import murlov.tennis_scoreboard.dao.PlayerDao;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
-import murlov.tennis_scoreboard.exception.NotFoundException;
-import murlov.tennis_scoreboard.model.Match;
 import murlov.tennis_scoreboard.model.Player;
+import murlov.tennis_scoreboard.model.PlayerScore;
+import murlov.tennis_scoreboard.model.UnfinishedMatch;
+import murlov.tennis_scoreboard.storage.UnfinishedMatchesStorage;
+
+import java.util.UUID;
 
 public class MatchService {
 
-    private final MatchDao matchDao;
     private final PlayerDao playerDao;
+    private final UnfinishedMatchesStorage unfinishedMatchesStorage;
 
-    public MatchService(MatchDao matchDao, PlayerDao playerDao) {
-        this.matchDao = matchDao;
+    public MatchService(PlayerDao playerDao, UnfinishedMatchesStorage unfinishedMatchesStorage) {
         this.playerDao = playerDao;
+        this.unfinishedMatchesStorage = unfinishedMatchesStorage;
     }
 
-    public Match save(MatchRequestDto matchRequestDto) {
+    public UUID createMatch(MatchRequestDto matchRequestDto) {
         Player firstPlayer = playerDao
                 .getByName(matchRequestDto.firstPlayerName())
-                .orElseThrow(() -> new NotFoundException(
-                        "Player not found: " + matchRequestDto
-                                .firstPlayerName()
+                .orElseGet(() -> playerDao.save(
+                        matchRequestDto.firstPlayerName()
                 ));
 
         Player secondPlayer = playerDao
                 .getByName(matchRequestDto.secondPlayerName())
-                .orElseThrow(() -> new NotFoundException(
-                        "Player not found: " + matchRequestDto
-                                .secondPlayerName()
+                .orElseGet(() -> playerDao.save(
+                        matchRequestDto.secondPlayerName()
                 ));
 
-        Match match = createMatch(firstPlayer.getId(), secondPlayer.getId());
-
-        return matchDao.save(match);
-    }
-
-    private Match createMatch(Long firstPlayerId, Long secondPlayerId) {
-        return new Match(
-                null,
-                firstPlayerId,
-                secondPlayerId,
-                null
+        UnfinishedMatch unfinishedMatch = new UnfinishedMatch(
+                new PlayerScore(firstPlayer.getName()),
+                new PlayerScore(secondPlayer.getName())
         );
+
+        unfinishedMatchesStorage.save(unfinishedMatch);
+
+        return unfinishedMatch.getUuid();
     }
 }
