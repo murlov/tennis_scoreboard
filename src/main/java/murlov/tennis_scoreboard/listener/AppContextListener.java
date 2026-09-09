@@ -23,8 +23,22 @@ public class AppContextListener implements ServletContextListener {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        sessionFactory = new Configuration()
+        Configuration configuration = new Configuration()
                 .configure()
+                .setProperty(
+                        "hibernate.connection.url",
+                        System.getenv("DB_URL")
+                )
+                .setProperty(
+                        "hibernate.connection.username",
+                        System.getenv("DB_USERNAME")
+                )
+                .setProperty(
+                        "hibernate.connection.password",
+                        System.getenv("DB_PASSWORD")
+                );
+
+        sessionFactory = configuration
                 .buildSessionFactory();
 
         PlayerDao playerDao = new PlayerDao(sessionFactory);
