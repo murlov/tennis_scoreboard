@@ -38,8 +38,6 @@ public class AppContextListener implements ServletContextListener {
 
         context.setAttribute("objectMapper", objectMapper);
 
-        context.setAttribute("unfinishedMatchStorage", unfinishedMatchesStorage);
-
         context.setAttribute("matchService", matchService);
     }
 
