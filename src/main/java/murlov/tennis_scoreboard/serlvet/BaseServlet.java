@@ -81,4 +81,9 @@ public abstract class BaseServlet extends HttpServlet {
         response.setStatus(status);
         objectMapper.writeValue(response.getWriter(), value);
     }
+
+    protected <T> T readFromRequest(HttpServletRequest request, Class<T> valueType) throws IOException {
+        return objectMapper
+                .readValue(request.getReader(), valueType);
+    }
 }
