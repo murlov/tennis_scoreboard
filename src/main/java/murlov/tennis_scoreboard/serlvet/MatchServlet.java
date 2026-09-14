@@ -5,9 +5,11 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
+import murlov.tennis_scoreboard.mapper.MatchMapper;
 import murlov.tennis_scoreboard.service.MatchService;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @WebServlet("/matches")
 public class MatchServlet extends BaseServlet {
@@ -51,6 +53,8 @@ public class MatchServlet extends BaseServlet {
         MatchRequestDto matchRequestDto = objectMapper
                 .readValue(request.getReader(), MatchRequestDto.class);
 
-        sendResponse(response, HttpServletResponse.SC_CREATED, matchService.createMatch(matchRequestDto));
+        UUID uuid = matchService.createMatch(matchRequestDto);
+
+        sendResponse(response, HttpServletResponse.SC_CREATED, MatchMapper.INSTANCE.toDto(uuid));
     }
 }

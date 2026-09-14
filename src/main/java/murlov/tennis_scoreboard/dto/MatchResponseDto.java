@@ -1,4 +1,6 @@
 package murlov.tennis_scoreboard.dto;
 
-public record MatchResponseDto(Long id) {
+import java.util.UUID;
+
+public record MatchResponseDto(UUID id) {
 }
