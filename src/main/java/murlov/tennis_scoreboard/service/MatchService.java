@@ -2,6 +2,7 @@ package murlov.tennis_scoreboard.service;
 
 import murlov.tennis_scoreboard.dao.PlayerDao;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
+import murlov.tennis_scoreboard.dto.PointRequestDto;
 import murlov.tennis_scoreboard.model.Player;
 import murlov.tennis_scoreboard.model.PlayerScore;
 import murlov.tennis_scoreboard.model.UnfinishedMatch;
@@ -40,5 +41,11 @@ public class MatchService {
         unfinishedMatchesStorage.save(unfinishedMatch);
 
         return unfinishedMatch.getUuid();
+    }
+
+    public UnfinishedMatch addPoint(UUID matchUuid, PointRequestDto pointRequestDto) {
+        UnfinishedMatch unfinishedMatch = unfinishedMatchesStorage.get(matchUuid);
+        unfinishedMatch.addPoint(pointRequestDto.name());
+        return unfinishedMatch;
     }
 }
