@@ -5,6 +5,7 @@ import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
+import murlov.tennis_scoreboard.dao.MatchDao;
 import murlov.tennis_scoreboard.dao.PlayerDao;
 import murlov.tennis_scoreboard.service.MatchService;
 import murlov.tennis_scoreboard.storage.UnfinishedMatchesStorage;
@@ -42,9 +43,11 @@ public class AppContextListener implements ServletContextListener {
                 .buildSessionFactory();
 
         PlayerDao playerDao = new PlayerDao(sessionFactory);
+        MatchDao matchDao = new MatchDao(sessionFactory);
 
         MatchService matchService = new MatchService(
                 playerDao,
+                matchDao,
                 unfinishedMatchesStorage
         );
 

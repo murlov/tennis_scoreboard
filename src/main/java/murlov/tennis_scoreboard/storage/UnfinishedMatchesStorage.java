@@ -22,4 +22,8 @@ public class UnfinishedMatchesStorage {
     public UnfinishedMatch get(UUID uuid) {
         return matches.get(uuid);
     }
+
+    public void remove(UUID uuid) {
+        matches.remove(uuid);
+    }
 }
