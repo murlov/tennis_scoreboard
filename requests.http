@@ -1,0 +1,31 @@
+### Создание матча
+POST http://localhost:8080/matches
+Content-Type: application/json
+Accept: application/json
+
+{
+  "firstPlayerName": "Grey",
+  "secondPlayerName": "Alex"
+}
+
+> {%
+    client.global.set("id", response.body.id);
+%}
+
+### Начисление очка первому игроку
+POST http://localhost:8080/matches/{{id}}/point
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Grey"
+}
+
+### Начисление очка второму игроку
+POST http://localhost:8080/matches/{{id}}/point
+Content-Type: application/json
+Accept: application/json
+
+{
+  "name": "Alex"
+}
