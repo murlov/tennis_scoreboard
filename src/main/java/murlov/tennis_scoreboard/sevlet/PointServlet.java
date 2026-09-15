@@ -1,4 +1,4 @@
-package murlov.tennis_scoreboard.serlvet;
+package murlov.tennis_scoreboard.sevlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

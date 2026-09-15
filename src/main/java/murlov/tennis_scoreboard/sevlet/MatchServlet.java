@@ -1,4 +1,4 @@
-package murlov.tennis_scoreboard.serlvet;
+package murlov.tennis_scoreboard.sevlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.*;

@@ -1,10 +1,9 @@
-package murlov.tennis_scoreboard.serlvet;
+package murlov.tennis_scoreboard.sevlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
 import murlov.tennis_scoreboard.exception.MethodNotAllowedException;
 
 import java.io.IOException;
