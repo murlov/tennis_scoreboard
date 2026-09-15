@@ -11,6 +11,7 @@ import murlov.tennis_scoreboard.dto.ErrorResponse;
 import murlov.tennis_scoreboard.exception.DuplicateException;
 import murlov.tennis_scoreboard.exception.MethodNotAllowedException;
 import murlov.tennis_scoreboard.exception.NotFoundException;
+import murlov.tennis_scoreboard.exception.ValidationException;
 
 import java.io.IOException;
 
@@ -44,6 +45,8 @@ public class ExceptionHandlingFilter extends HttpFilter {
             sendError(response, HttpServletResponse.SC_NOT_FOUND, e.getMessage());
         } catch (DuplicateException e) {
             sendError(response, HttpServletResponse.SC_CONFLICT, e.getMessage());
+        } catch (ValidationException e) {
+            sendError(response, HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
         }
     }
 
