@@ -44,7 +44,8 @@ public class PointServlet extends BaseServlet{
         UUID matchUuid = UUID.fromString(matchId);
 
         PointRequestDto pointRequestDto = readFromRequest(
-                request, PointRequestDto.class);
+                request, PointRequestDto.class
+        );
 
         UnfinishedMatch unfinishedMatch = matchService.addPoint(matchUuid, pointRequestDto);
 

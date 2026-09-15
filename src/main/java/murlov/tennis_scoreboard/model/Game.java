@@ -3,7 +3,7 @@ package murlov.tennis_scoreboard.model;
 import murlov.tennis_scoreboard.exception.ValidationException;
 
 public class Game {
-    public static PointResult addPoint(PlayerScore playerScore, PlayerScore opponentPlayerScore) {
+    public static PointResult addGamePoint(PlayerScore playerScore, PlayerScore opponentPlayerScore) {
         switch (playerScore.getPoints()) {
             case GamePoints.ZERO:
                 playerScore.setPoints(GamePoints.FIFTEEN);
@@ -30,7 +30,7 @@ public class Game {
                         return PointResult.WON;
                     default:
                         throw new ValidationException(
-                                "Unexcepted points number"
+                                "Unexpected points number"
                         );
                 }
             case GamePoints.ADVANTAGE:
@@ -41,6 +41,18 @@ public class Game {
                 throw new ValidationException(
                         "Unexcepted points number"
                 );
+        }
+    }
+
+    public static PointResult addTieBreakPoint(PlayerScore playerScore, PlayerScore opponentPlayerScore) {
+        playerScore.setTieBreakPoints(playerScore.getTieBreakPoints() + 1);
+        if (playerScore.getTieBreakPoints() == 7 ||
+                (playerScore.getTieBreakPoints() - opponentPlayerScore.getTieBreakPoints() == 2)) {
+            playerScore.setTieBreakPoints(0);
+            opponentPlayerScore.setTieBreakPoints(0);
+            return PointResult.WON;
+        } else {
+            return PointResult.IN_PROGRESS;
         }
     }
 }

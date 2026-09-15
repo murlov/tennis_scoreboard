@@ -12,6 +12,7 @@ public class UnfinishedMatch {
     private PlayerScore firstPlayerScore;
     private PlayerScore secondPlayerScore;
     private String winnerName;
+    private boolean isTieBreakInSet;
 
     public UnfinishedMatch(PlayerScore firstPlayerScore,
                            PlayerScore secondPlayerScore) {
@@ -19,7 +20,6 @@ public class UnfinishedMatch {
         this.firstPlayerScore = firstPlayerScore;
         this.secondPlayerScore = secondPlayerScore;
     }
-
 
     public void addPoint(String name) {
         PlayerScore playerScore = getPlayerScoreByName(name)
@@ -29,13 +29,52 @@ public class UnfinishedMatch {
 
         PlayerScore opponentPlayerScore = getOpponentPlayerScore(playerScore);
 
-        PointResult pointResult = Set.addPoint(playerScore, opponentPlayerScore);
+        if (isTieBreakInSet) {
+            addTieBreakPoint(playerScore, opponentPlayerScore);
+        } else {
+            addGamePoint(playerScore, opponentPlayerScore);
+        }
+    }
+
+    private void addTieBreakPoint(PlayerScore playerScore, PlayerScore opponentPlayerScore) {
+        PointResult pointResult = Set.addTieBreakPoint(playerScore, opponentPlayerScore);
 
         if (pointResult == PointResult.WON) {
             playerScore.setSets(playerScore.getSets() + 1);
-            if (playerScore.getSets() == 3) {
+            if (playerScore.getSets() == 3 ||
+                    playerScore.getSets() - opponentPlayerScore.getSets() == 2) {
                 winnerName = playerScore.getName();
+            } else {
+                isTieBreakInSet = false;
+                playerScore.setPoints(GamePoints.ZERO);
+                opponentPlayerScore.setPoints(GamePoints.ZERO);
+                playerScore.setTieBreakPoints(null);
+                opponentPlayerScore.setTieBreakPoints(null);
             }
+        }
+    }
+
+    private void addGamePoint(PlayerScore playerScore, PlayerScore opponentPlayerScore) {
+
+        PointResult pointResult = Set.addGamePoint(playerScore, opponentPlayerScore);
+
+        if (pointResult == PointResult.WON) {
+            playerScore.setSets(playerScore.getSets() + 1);
+            checkAndSetWinner(playerScore, opponentPlayerScore);
+
+        } else if (pointResult == PointResult.TIEBREAK) {
+            playerScore.setPoints(null);
+            opponentPlayerScore.setPoints(null);
+            playerScore.setTieBreakPoints(0);
+            opponentPlayerScore.setTieBreakPoints(0);
+            isTieBreakInSet = true;
+        }
+    }
+
+    private void checkAndSetWinner(PlayerScore playerScore, PlayerScore opponentPlayerScore) {
+        if (playerScore.getSets() == 3 ||
+                playerScore.getSets() - opponentPlayerScore.getSets() == 2) {
+            winnerName = playerScore.getName();
         }
     }
 
