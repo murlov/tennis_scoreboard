@@ -41,8 +41,7 @@ public class UnfinishedMatch {
 
         if (pointResult == PointResult.WON) {
             playerScore.setSets(playerScore.getSets() + 1);
-            if (playerScore.getSets() == 3 ||
-                    playerScore.getSets() - opponentPlayerScore.getSets() == 2) {
+            if (playerScore.getSets() == 2) {
                 winnerName = playerScore.getName();
             } else {
                 isTieBreakInSet = false;
@@ -60,7 +59,9 @@ public class UnfinishedMatch {
 
         if (pointResult == PointResult.WON) {
             playerScore.setSets(playerScore.getSets() + 1);
-            checkAndSetWinner(playerScore);
+            if (playerScore.getSets() == 2) {
+                winnerName = playerScore.getName();
+            }
 
         } else if (pointResult == PointResult.TIEBREAK) {
             playerScore.setPoints(null);
@@ -68,12 +69,6 @@ public class UnfinishedMatch {
             playerScore.setTieBreakPoints(0);
             opponentPlayerScore.setTieBreakPoints(0);
             isTieBreakInSet = true;
-        }
-    }
-
-    private void checkAndSetWinner(PlayerScore playerScore) {
-        if (playerScore.getSets() == 2) {
-            winnerName = playerScore.getName();
         }
     }
 
