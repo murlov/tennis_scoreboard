@@ -1,8 +1,10 @@
 package murlov.tennis_scoreboard.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class PlayerScore {
     private final String name;
     private GamePoints points;
