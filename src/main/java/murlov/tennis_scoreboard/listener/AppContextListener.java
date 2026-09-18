@@ -1,6 +1,7 @@
 package murlov.tennis_scoreboard.listener;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -23,6 +24,7 @@ public class AppContextListener implements ServletContextListener {
         UnfinishedMatchesStorage unfinishedMatchesStorage = new UnfinishedMatchesStorage();
 
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         Configuration configuration = new Configuration()
                 .configure()

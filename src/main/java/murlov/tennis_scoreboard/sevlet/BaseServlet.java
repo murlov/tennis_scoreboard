@@ -1,7 +1,6 @@
 package murlov.tennis_scoreboard.sevlet;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import murlov.tennis_scoreboard.exception.MethodNotAllowedException;
@@ -25,8 +24,6 @@ public abstract class BaseServlet extends HttpServlet {
                     "ObjectMapper is not initialized"
             );
         }
-
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
     }
 
     @Override
