@@ -38,8 +38,8 @@ public class MatchService {
                 ));
 
         UnfinishedMatch unfinishedMatch = new UnfinishedMatch(
-                new PlayerScore(firstPlayer.getName()),
-                new PlayerScore(secondPlayer.getName())
+                new PlayerScore(firstPlayer.getId(), firstPlayer.getName()),
+                new PlayerScore(secondPlayer.getId(), secondPlayer.getName())
         );
 
         unfinishedMatchesStorage.save(unfinishedMatch);
@@ -62,33 +62,23 @@ public class MatchService {
         String firstPlayerName = unfinishedMatch
                 .getFirstPlayerScore()
                 .getName();
-        Player firstPlayer = playerDao.getByName(firstPlayerName)
-                .orElseThrow(
-                        () -> new IllegalStateException(
-                                "Player not found: " + firstPlayerName
-                        )
-                );
-
-        String secondPlayerName = unfinishedMatch
+        Long firstPlayerId = unfinishedMatch
+                .getFirstPlayerScore()
+                .getId();
+        Long secondPlayerId = unfinishedMatch
                 .getSecondPlayerScore()
-                .getName();
-        Player secondPlayer = playerDao.getByName(secondPlayerName)
-                .orElseThrow(
-                        () -> new IllegalStateException(
-                                "Player not found: " + secondPlayerName
-                        )
-                );
-
+                .getId();
         Long winner;
+
         if (unfinishedMatch.getWinnerName().equals(firstPlayerName)) {
-            winner = firstPlayer.getId();
+            winner = firstPlayerId;
         } else {
-            winner = secondPlayer.getId();
+            winner = secondPlayerId;
         }
 
         Match match = new Match(
-                firstPlayer.getId(),
-                secondPlayer.getId(),
+                firstPlayerId,
+                secondPlayerId,
                 winner
         );
 
