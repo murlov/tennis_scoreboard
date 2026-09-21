@@ -12,13 +12,21 @@ import lombok.*;
 public class Match {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long player1;
-    private Long player2;
-    private Long winner;
     private int id;
 
-    public Match(Long player1, Long player2, Long winner) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Player1", nullable = false)
+    private Player player1;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Player2", nullable = false)
+    private Player player2;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "Winner")
+    private Player winner;
+
+    public Match(Player player1, Player player2, Player winner) {
         this.player1 = player1;
         this.player2 = player2;
         this.winner = winner;

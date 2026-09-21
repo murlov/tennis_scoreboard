@@ -4,7 +4,6 @@ import murlov.tennis_scoreboard.dao.MatchDao;
 import murlov.tennis_scoreboard.dao.PlayerDao;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
 import murlov.tennis_scoreboard.dto.PointRequestDto;
-import murlov.tennis_scoreboard.model.Match;
 import murlov.tennis_scoreboard.model.Player;
 import murlov.tennis_scoreboard.model.PlayerScore;
 import murlov.tennis_scoreboard.model.UnfinishedMatch;
@@ -59,30 +58,20 @@ public class MatchService {
     }
 
     private void saveMatch(UnfinishedMatch unfinishedMatch, UUID matchUuid) {
-        String firstPlayerName = unfinishedMatch
-                .getFirstPlayerScore()
-                .getName();
-        Long firstPlayerId = unfinishedMatch
-                .getFirstPlayerScore()
-                .getId();
-        Long secondPlayerId = unfinishedMatch
-                .getSecondPlayerScore()
-                .getId();
-        Long winner;
+        String firstPlayerName = unfinishedMatch.getFirstPlayerScore().getName();
+        String winnerName = unfinishedMatch.getWinnerName();
 
-        if (unfinishedMatch.getWinnerName().equals(firstPlayerName)) {
-            winner = firstPlayerId;
-        } else {
-            winner = secondPlayerId;
-        }
+        int firstPlayerId = unfinishedMatch.getFirstPlayerScore().getId();
+        int secondPlayerId = unfinishedMatch.getSecondPlayerScore().getId();
 
-        Match match = new Match(
+        int winnerId = firstPlayerName.equals(winnerName) ? firstPlayerId : secondPlayerId;
+
+        matchDao.saveFinishedMatch(
                 firstPlayerId,
                 secondPlayerId,
-                winner
+                winnerId
         );
 
-        matchDao.save(match);
         unfinishedMatchesStorage.remove(matchUuid);
     }
 }
