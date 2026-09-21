@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.*;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
 import murlov.tennis_scoreboard.mapper.MatchMapper;
 import murlov.tennis_scoreboard.service.MatchService;
+import murlov.tennis_scoreboard.util.MatchValidator;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -52,6 +53,8 @@ public class MatchServlet extends BaseServlet {
 
         MatchRequestDto matchRequestDto = objectMapper
                 .readValue(request.getReader(), MatchRequestDto.class);
+
+        MatchValidator.validate(matchRequestDto);
 
         UUID uuid = matchService.createMatch(matchRequestDto);
 
