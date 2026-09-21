@@ -16,6 +16,7 @@ public class Match {
     private Long player1;
     private Long player2;
     private Long winner;
+    private int id;
 
     public Match(Long player1, Long player2, Long winner) {
         this.player1 = player1;
