@@ -8,6 +8,7 @@ import murlov.tennis_scoreboard.dto.PointRequestDto;
 import murlov.tennis_scoreboard.mapper.PointMapper;
 import murlov.tennis_scoreboard.model.UnfinishedMatch;
 import murlov.tennis_scoreboard.service.MatchService;
+import murlov.tennis_scoreboard.util.UuidParser;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -15,7 +16,6 @@ import java.util.UUID;
 @WebServlet("/matches/*")
 public class PointServlet extends BaseServlet{
 
-    private static final int MATCH_ID_INDEX = 1;
     private MatchService matchService;
 
     @Override
@@ -36,12 +36,8 @@ public class PointServlet extends BaseServlet{
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String pathInfo = request.getPathInfo();
 
-        String[] parts = pathInfo.split("/");
-
-        String matchId = parts[MATCH_ID_INDEX];
-        UUID matchUuid = UUID.fromString(matchId);
+        UUID matchUuid = UuidParser.parse(request);
 
         PointRequestDto pointRequestDto = readFromRequest(
                 request, PointRequestDto.class
