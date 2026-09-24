@@ -1,6 +1,5 @@
 package murlov.tennis_scoreboard.sevlet;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -16,7 +15,6 @@ import java.util.UUID;
 public class MatchServlet extends BaseServlet {
 
     private MatchService matchService;
-    private ObjectMapper objectMapper;
 
     @Override
     public void init() throws ServletException {
@@ -31,16 +29,6 @@ public class MatchServlet extends BaseServlet {
                     "MatchService is not initialized"
             );
         }
-
-        this.objectMapper =
-                (ObjectMapper) getServletContext()
-                        .getAttribute("objectMapper");
-
-        if (objectMapper == null) {
-            throw new IllegalStateException(
-                    "ObjectMapper is not initialized"
-            );
-        }
     }
 
     @Override
@@ -51,8 +39,9 @@ public class MatchServlet extends BaseServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        MatchRequestDto matchRequestDto = objectMapper
-                .readValue(request.getReader(), MatchRequestDto.class);
+        MatchRequestDto matchRequestDto = readFromRequest(
+                request, MatchRequestDto.class
+        );
 
         MatchValidator.validate(matchRequestDto);
 
