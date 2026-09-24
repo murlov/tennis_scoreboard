@@ -9,6 +9,7 @@ import murlov.tennis_scoreboard.mapper.PointMapper;
 import murlov.tennis_scoreboard.model.UnfinishedMatch;
 import murlov.tennis_scoreboard.service.MatchService;
 import murlov.tennis_scoreboard.util.UuidParser;
+import murlov.tennis_scoreboard.util.validator.PointValidator;
 
 import java.io.IOException;
 import java.util.UUID;
@@ -42,6 +43,8 @@ public class PointServlet extends BaseServlet{
         PointRequestDto pointRequestDto = readFromRequest(
                 request, PointRequestDto.class
         );
+
+        PointValidator.validatePointRequestDto(pointRequestDto);
 
         UnfinishedMatch unfinishedMatch = matchService.addPoint(matchUuid, pointRequestDto);
 
