@@ -1,4 +1,4 @@
-package murlov.tennis_scoreboard.util;
+package murlov.tennis_scoreboard.util.validator;
 
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
 import murlov.tennis_scoreboard.exception.ValidationException;
