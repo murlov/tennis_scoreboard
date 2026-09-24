@@ -1,9 +1,11 @@
 package murlov.tennis_scoreboard.sevlet;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import murlov.tennis_scoreboard.exception.MethodNotAllowedException;
+import murlov.tennis_scoreboard.exception.ValidationException;
 
 import java.io.IOException;
 
@@ -79,7 +81,14 @@ public abstract class BaseServlet extends HttpServlet {
     }
 
     protected <T> T readFromRequest(HttpServletRequest request, Class<T> valueType) throws IOException {
-        return objectMapper
-                .readValue(request.getReader(), valueType);
+
+        try {
+            return objectMapper
+                    .readValue(request.getReader(), valueType);
+        } catch (JsonProcessingException e) {
+            throw new ValidationException(
+                    "Invalid JSON in request body"
+            );
+        }
     }
 }
