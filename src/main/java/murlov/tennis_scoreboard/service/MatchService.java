@@ -4,6 +4,7 @@ import murlov.tennis_scoreboard.dao.MatchDao;
 import murlov.tennis_scoreboard.dao.PlayerDao;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
 import murlov.tennis_scoreboard.dto.PointRequestDto;
+import murlov.tennis_scoreboard.exception.NotFoundException;
 import murlov.tennis_scoreboard.model.Player;
 import murlov.tennis_scoreboard.model.PlayerScore;
 import murlov.tennis_scoreboard.model.UnfinishedMatch;
@@ -47,7 +48,14 @@ public class MatchService {
     }
 
     public UnfinishedMatch addPoint(UUID matchUuid, PointRequestDto pointRequestDto) {
-        UnfinishedMatch unfinishedMatch = unfinishedMatchesStorage.get(matchUuid);
+        UnfinishedMatch unfinishedMatch = unfinishedMatchesStorage.get(matchUuid)
+                .orElseThrow(
+                        () -> new NotFoundException(
+                                "Match with UUID " +
+                                        matchUuid +
+                                        " not found"
+                        )
+                );
         unfinishedMatch.addPoint(pointRequestDto.name());
 
         if (unfinishedMatch.getWinnerName() != null) {
