@@ -7,6 +7,7 @@ import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import murlov.tennis_scoreboard.dto.ErrorResponse;
 import murlov.tennis_scoreboard.exception.DuplicateException;
 import murlov.tennis_scoreboard.exception.MethodNotAllowedException;
@@ -15,6 +16,7 @@ import murlov.tennis_scoreboard.exception.ValidationException;
 
 import java.io.IOException;
 
+@Slf4j
 @WebFilter("/*")
 public class ExceptionHandlingFilter extends HttpFilter {
 
@@ -36,7 +38,7 @@ public class ExceptionHandlingFilter extends HttpFilter {
     }
 
     @Override
-    protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+    protected void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException {
         try {
             chain.doFilter(request, response);
         } catch (MethodNotAllowedException e) {
@@ -47,6 +49,9 @@ public class ExceptionHandlingFilter extends HttpFilter {
             sendError(response, HttpServletResponse.SC_CONFLICT, e.getMessage());
         } catch (ValidationException e) {
             sendError(response, HttpServletResponse.SC_BAD_REQUEST, e.getMessage());
+        } catch (Exception e) {
+            log.error("Unexpected error", e);
+            sendError(response, HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Unexpected error");
         }
     }
 
