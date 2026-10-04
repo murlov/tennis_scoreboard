@@ -48,14 +48,7 @@ public class MatchService {
     }
 
     public UnfinishedMatch addPoint(UUID matchUuid, PointRequestDto pointRequestDto) {
-        UnfinishedMatch unfinishedMatch = unfinishedMatchesStorage.get(matchUuid)
-                .orElseThrow(
-                        () -> new NotFoundException(
-                                "Match with UUID " +
-                                        matchUuid +
-                                        " not found"
-                        )
-                );
+        UnfinishedMatch unfinishedMatch = getMatch(matchUuid);
         unfinishedMatch.addPoint(pointRequestDto.name());
 
         if (unfinishedMatch.getWinnerName() != null) {
@@ -63,6 +56,17 @@ public class MatchService {
         }
 
         return unfinishedMatch;
+    }
+
+    public UnfinishedMatch getMatch(UUID matchUuid) {
+        return unfinishedMatchesStorage.get(matchUuid)
+                .orElseThrow(
+                        () -> new NotFoundException(
+                                "Match with UUID " +
+                                        matchUuid +
+                                        " not found"
+                        )
+                );
     }
 
     private void saveMatch(UnfinishedMatch unfinishedMatch, UUID matchUuid) {
