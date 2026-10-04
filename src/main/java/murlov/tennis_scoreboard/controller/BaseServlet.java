@@ -1,4 +1,4 @@
-package murlov.tennis_scoreboard.sevlet;
+package murlov.tennis_scoreboard.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

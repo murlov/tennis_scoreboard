@@ -1,7 +1,7 @@
 package murlov.tennis_scoreboard.service;
 
-import murlov.tennis_scoreboard.dao.MatchDao;
-import murlov.tennis_scoreboard.dao.PlayerDao;
+import murlov.tennis_scoreboard.repository.MatchDao;
+import murlov.tennis_scoreboard.repository.PlayerDao;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
 import murlov.tennis_scoreboard.dto.PointRequestDto;
 import murlov.tennis_scoreboard.exception.NotFoundException;

@@ -1,4 +1,4 @@
-package murlov.tennis_scoreboard.sevlet;
+package murlov.tennis_scoreboard.controller;
 
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;

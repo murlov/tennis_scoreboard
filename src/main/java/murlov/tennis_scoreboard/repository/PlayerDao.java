@@ -1,4 +1,4 @@
-package murlov.tennis_scoreboard.dao;
+package murlov.tennis_scoreboard.repository;
 
 import murlov.tennis_scoreboard.exception.DuplicateException;
 import murlov.tennis_scoreboard.model.Player;
