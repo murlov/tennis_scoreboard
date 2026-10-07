@@ -5,7 +5,9 @@ import murlov.tennis_scoreboard.model.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public final class MatchDao {
 
     private final SessionFactory sessionFactory;

@@ -6,9 +6,11 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+@Repository
 public final class PlayerDao {
 
     private final SessionFactory sessionFactory;

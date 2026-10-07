@@ -1,13 +1,14 @@
 package murlov.tennis_scoreboard.storage;
 
 import murlov.tennis_scoreboard.model.UnfinishedMatch;
+import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
-
+@Component
 public class UnfinishedMatchesStorage {
 
     private final Map<UUID, UnfinishedMatch> matches;

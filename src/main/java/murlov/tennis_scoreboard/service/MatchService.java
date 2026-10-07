@@ -9,9 +9,11 @@ import murlov.tennis_scoreboard.model.Player;
 import murlov.tennis_scoreboard.model.PlayerScore;
 import murlov.tennis_scoreboard.model.UnfinishedMatch;
 import murlov.tennis_scoreboard.storage.UnfinishedMatchesStorage;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 public class MatchService {
 
     private final PlayerDao playerDao;
