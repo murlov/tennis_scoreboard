@@ -5,6 +5,7 @@ import murlov.tennis_scoreboard.dto.PointResponseDto;
 import murlov.tennis_scoreboard.mapper.PointMapper;
 import murlov.tennis_scoreboard.model.UnfinishedMatch;
 import murlov.tennis_scoreboard.service.MatchService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,10 +25,10 @@ public class PointController {
     }
 
     @PostMapping("/matches/{uuid}/point")
-    public PointResponseDto addPoint(@PathVariable("uuid") UUID matchId,
+    public ResponseEntity<PointResponseDto> addPoint(@PathVariable("uuid") UUID matchId,
                                      @RequestBody PointRequestDto pointRequestDto) {
         UnfinishedMatch unfinishedMatch = matchService.addPoint(matchId, pointRequestDto);
 
-        return pointMapper.toDto(unfinishedMatch);
+        return ResponseEntity.ok(pointMapper.toDto(unfinishedMatch));
     }
 }
