@@ -1,5 +1,15 @@
 package murlov.tennis_scoreboard.dto;
 
-public record MatchRequestDto (String firstPlayerName,
-                               String secondPlayerName){
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+public record MatchRequestDto (
+        @NotBlank
+        @Size(max = 50)
+        String firstPlayerName,
+
+        @NotBlank
+        @Size(max = 50)
+        String secondPlayerName
+){
 }
