@@ -54,4 +54,15 @@ public class GlobalExceptionHandler {
                         )
                 );
     }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorResponse> handleRuntimeException() {
+        return ResponseEntity
+                .internalServerError()
+                .body(
+                        new ErrorResponse(
+                                "Unexpected error"
+                        )
+                );
+    }
 }
