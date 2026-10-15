@@ -43,4 +43,15 @@ public class GlobalExceptionHandler {
                         )
                 );
     }
+
+    @ExceptionHandler(DuplicateException.class)
+    public ResponseEntity<ErrorResponse> handleDuplicateException(DuplicateException e) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(
+                        new ErrorResponse(
+                                e.getMessage()
+                        )
+                );
+    }
 }
