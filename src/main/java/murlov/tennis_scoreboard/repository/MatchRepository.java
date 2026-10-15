@@ -8,11 +8,11 @@ import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public final class MatchDao {
+public final class MatchRepository {
 
     private final SessionFactory sessionFactory;
 
-    public MatchDao(SessionFactory sessionFactory) {
+    public MatchRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

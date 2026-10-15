@@ -1,7 +1,7 @@
 package murlov.tennis_scoreboard.service;
 
-import murlov.tennis_scoreboard.repository.MatchDao;
-import murlov.tennis_scoreboard.repository.PlayerDao;
+import murlov.tennis_scoreboard.repository.MatchRepository;
+import murlov.tennis_scoreboard.repository.PlayerRepository;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
 import murlov.tennis_scoreboard.dto.PointRequestDto;
 import murlov.tennis_scoreboard.exception.NotFoundException;
@@ -16,26 +16,26 @@ import java.util.UUID;
 @Service
 public class MatchService {
 
-    private final PlayerDao playerDao;
-    private final MatchDao matchDao;
+    private final PlayerRepository playerRepository;
+    private final MatchRepository matchRepository;
     private final UnfinishedMatchesStorage unfinishedMatchesStorage;
 
-    public MatchService(PlayerDao playerDao, MatchDao matchDao, UnfinishedMatchesStorage unfinishedMatchesStorage) {
-        this.playerDao = playerDao;
-        this.matchDao = matchDao;
+    public MatchService(PlayerRepository playerRepository, MatchRepository matchRepository, UnfinishedMatchesStorage unfinishedMatchesStorage) {
+        this.playerRepository = playerRepository;
+        this.matchRepository = matchRepository;
         this.unfinishedMatchesStorage = unfinishedMatchesStorage;
     }
 
     public UUID createMatch(MatchRequestDto matchRequestDto) {
-        Player firstPlayer = playerDao
+        Player firstPlayer = playerRepository
                 .getByName(matchRequestDto.firstPlayerName())
-                .orElseGet(() -> playerDao.save(
+                .orElseGet(() -> playerRepository.save(
                         matchRequestDto.firstPlayerName()
                 ));
 
-        Player secondPlayer = playerDao
+        Player secondPlayer = playerRepository
                 .getByName(matchRequestDto.secondPlayerName())
-                .orElseGet(() -> playerDao.save(
+                .orElseGet(() -> playerRepository.save(
                         matchRequestDto.secondPlayerName()
                 ));
 
@@ -80,7 +80,7 @@ public class MatchService {
 
         int winnerId = firstPlayerName.equals(winnerName) ? firstPlayerId : secondPlayerId;
 
-        matchDao.saveFinishedMatch(
+        matchRepository.saveFinishedMatch(
                 firstPlayerId,
                 secondPlayerId,
                 winnerId

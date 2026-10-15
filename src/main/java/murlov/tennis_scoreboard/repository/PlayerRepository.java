@@ -11,11 +11,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public final class PlayerDao {
+public final class PlayerRepository {
 
     private final SessionFactory sessionFactory;
 
-    public PlayerDao(SessionFactory sessionFactory) {
+    public PlayerRepository(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 
