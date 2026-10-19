@@ -58,4 +58,18 @@ class UnfinishedMatchTest {
     }
 
 
+    @Test
+    void addingPointAtAdvantageAgainstFortyScoreShouldWinGame() {
+        vasyaPlayerScore.setPoints(GamePoints.ADVANTAGE);
+        kolyaPlayerScore.setPoints(GamePoints.FORTY);
+
+        unfinishedMatch.addPoint("Vasya");
+
+        assertAll(
+                () -> assertEquals(GamePoints.ZERO, vasyaPlayerScore.getPoints(), "Vasya's points should reset to zero after winning the game"),
+                () -> assertEquals(GamePoints.ZERO, kolyaPlayerScore.getPoints(), "Kolya's points should reset to zero after Vasya wins the game"),
+                () -> assertEquals(1, vasyaPlayerScore.getGames(), "Vasya should have one game"),
+                () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya should have zero games")
+        );
+    }
 }
