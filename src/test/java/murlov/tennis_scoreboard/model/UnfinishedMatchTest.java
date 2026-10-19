@@ -43,7 +43,7 @@ class UnfinishedMatchTest {
             value = GamePoints.class,
             names = {"ZERO", "FIFTEEN", "THIRTY"}
     )
-    void fortyPointsAgainstLowerScoreShouldWinGame(GamePoints points) {
+    void addingPointAtFortyAgainstLowerScoreShouldWinGame(GamePoints points) {
         vasyaPlayerScore.setPoints(GamePoints.FORTY);
         kolyaPlayerScore.setPoints(points);
 
