@@ -72,4 +72,22 @@ class UnfinishedMatchTest {
                 () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya should have zero games")
         );
     }
+
+    @Test
+    void shouldStartTieBreakWhenGameScoreIsSixAll() {
+        vasyaPlayerScore.setGames(6);
+        kolyaPlayerScore.setGames(5);
+        vasyaPlayerScore.setPoints(GamePoints.ZERO);
+        kolyaPlayerScore.setPoints(GamePoints.FORTY);
+
+        unfinishedMatch.addPoint("Kolya");
+
+        assertAll(
+                () -> assertNull(vasyaPlayerScore.getPoints(), "Regular points should not be used during a tie-break"),
+                () -> assertNull(kolyaPlayerScore.getPoints(), "Regular points should not be used during a tie-break"),
+                () -> assertNotNull(vasyaPlayerScore.getTieBreakPoints(), "Tiebreak point must be initialized when tiebreak starts"),
+                () -> assertNotNull(kolyaPlayerScore.getTieBreakPoints(), "Tiebreak point must be initialized when tiebreak starts"),
+                () -> assertTrue(unfinishedMatch.isTieBreakInSet(), "Tie-break flag must be true when tie-break starts")
+        );
+    }
 }
