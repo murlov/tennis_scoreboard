@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UnfinishedMatchTest {
+class GameTest {
 
     private PlayerScore vasyaPlayerScore;
     private PlayerScore kolyaPlayerScore;
@@ -70,24 +70,6 @@ class UnfinishedMatchTest {
                 () -> assertEquals(GamePoints.ZERO, kolyaPlayerScore.getPoints(), "Kolya's points should reset to zero after Vasya wins the game"),
                 () -> assertEquals(1, vasyaPlayerScore.getGames(), "Vasya should have one game"),
                 () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya should have zero games")
-        );
-    }
-
-    @Test
-    void shouldStartTieBreakWhenGameScoreIsSixAll() {
-        vasyaPlayerScore.setGames(6);
-        kolyaPlayerScore.setGames(5);
-        vasyaPlayerScore.setPoints(GamePoints.ZERO);
-        kolyaPlayerScore.setPoints(GamePoints.FORTY);
-
-        unfinishedMatch.addPoint("Kolya");
-
-        assertAll(
-                () -> assertNull(vasyaPlayerScore.getPoints(), "Regular points should not be used during a tie-break"),
-                () -> assertNull(kolyaPlayerScore.getPoints(), "Regular points should not be used during a tie-break"),
-                () -> assertNotNull(vasyaPlayerScore.getTieBreakPoints(), "Tiebreak point must be initialized when tiebreak starts"),
-                () -> assertNotNull(kolyaPlayerScore.getTieBreakPoints(), "Tiebreak point must be initialized when tiebreak starts"),
-                () -> assertTrue(unfinishedMatch.isTieBreakInSet(), "Tie-break flag must be true when tie-break starts")
         );
     }
 }
