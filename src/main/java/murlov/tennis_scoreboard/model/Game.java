@@ -46,7 +46,7 @@ public class Game {
 
     public static PointResult addTieBreakPoint(PlayerScore playerScore, PlayerScore opponentPlayerScore) {
         playerScore.setTieBreakPoints(playerScore.getTieBreakPoints() + 1);
-        if (playerScore.getTieBreakPoints() == 7 ||
+        if (playerScore.getTieBreakPoints() >= 7 &&
                 (playerScore.getTieBreakPoints() - opponentPlayerScore.getTieBreakPoints() == 2)) {
             playerScore.setTieBreakPoints(0);
             opponentPlayerScore.setTieBreakPoints(0);
