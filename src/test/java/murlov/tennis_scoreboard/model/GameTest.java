@@ -31,10 +31,10 @@ class GameTest {
         unfinishedMatch.addPoint("Kolya");
 
         assertAll(
-                () -> assertEquals(GamePoints.ADVANTAGE, kolyaPlayerScore.getPoints(), "Kolya should have advantage"),
-                () -> assertEquals(GamePoints.FORTY, vasyaPlayerScore.getPoints(), "Vasya should have forty points"),
-                () -> assertEquals(0, vasyaPlayerScore.getGames(), "Vasya should have zero games"),
-                () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya should have zero games")
+                () -> assertEquals(GamePoints.ADVANTAGE, kolyaPlayerScore.getPoints(), "Kolya must have advantage"),
+                () -> assertEquals(GamePoints.FORTY, vasyaPlayerScore.getPoints(), "Vasya must have forty points"),
+                () -> assertEquals(0, vasyaPlayerScore.getGames(), "Vasya must have zero games"),
+                () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya must have zero games")
         );
     }
 
@@ -50,10 +50,10 @@ class GameTest {
         unfinishedMatch.addPoint("Vasya");
 
         assertAll(
-                () -> assertEquals(GamePoints.ZERO, vasyaPlayerScore.getPoints(), "Vasya's points should reset to zero after winning the game"),
-                () -> assertEquals(GamePoints.ZERO, kolyaPlayerScore.getPoints(), "Kolya's points should reset to zero after Vasya wins the game"),
-                () -> assertEquals(1, vasyaPlayerScore.getGames(), "Vasya should have one game"),
-                () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya should have zero games")
+                () -> assertEquals(GamePoints.ZERO, vasyaPlayerScore.getPoints(), "Vasya's points must reset to zero after winning the game"),
+                () -> assertEquals(GamePoints.ZERO, kolyaPlayerScore.getPoints(), "Kolya's points must reset to zero after Vasya wins the game"),
+                () -> assertEquals(1, vasyaPlayerScore.getGames(), "Vasya must have one game"),
+                () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya must have zero games")
         );
     }
 
@@ -66,10 +66,10 @@ class GameTest {
         unfinishedMatch.addPoint("Vasya");
 
         assertAll(
-                () -> assertEquals(GamePoints.ZERO, vasyaPlayerScore.getPoints(), "Vasya's points should reset to zero after winning the game"),
-                () -> assertEquals(GamePoints.ZERO, kolyaPlayerScore.getPoints(), "Kolya's points should reset to zero after Vasya wins the game"),
-                () -> assertEquals(1, vasyaPlayerScore.getGames(), "Vasya should have one game"),
-                () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya should have zero games")
+                () -> assertEquals(GamePoints.ZERO, vasyaPlayerScore.getPoints(), "Vasya's points must reset to zero after winning the game"),
+                () -> assertEquals(GamePoints.ZERO, kolyaPlayerScore.getPoints(), "Kolya's points must reset to zero after Vasya wins the game"),
+                () -> assertEquals(1, vasyaPlayerScore.getGames(), "Vasya must have one game"),
+                () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya must have zero games")
         );
     }
 }
