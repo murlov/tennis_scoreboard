@@ -72,4 +72,19 @@ class GameTest {
                 () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya must have zero games")
         );
     }
+
+    @Test
+    void addingPointAtAdvantageAgainstFortyShouldGiveFortyForty() {
+        vasyaPlayerScore.setPoints(GamePoints.ADVANTAGE);
+        kolyaPlayerScore.setPoints(GamePoints.FORTY);
+
+        unfinishedMatch.addPoint("Kolya");
+
+        assertAll(
+                () -> assertEquals(GamePoints.FORTY, vasyaPlayerScore.getPoints(), "Vasya must have forty points"),
+                () -> assertEquals(GamePoints.FORTY, kolyaPlayerScore.getPoints(), "Kolya must have forty points"),
+                () -> assertEquals(0, vasyaPlayerScore.getGames(), "Vasya must have zero games"),
+                () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya must have zero games")
+        );
+    }
 }
