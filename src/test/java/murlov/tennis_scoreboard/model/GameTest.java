@@ -59,7 +59,7 @@ class GameTest {
 
 
     @Test
-    void addingPointAtAdvantageAgainstFortyScoreShouldWinGame() {
+    void addingPointAtAdvantageAgainstFortyShouldWinGame() {
         vasyaPlayerScore.setPoints(GamePoints.ADVANTAGE);
         kolyaPlayerScore.setPoints(GamePoints.FORTY);
 
