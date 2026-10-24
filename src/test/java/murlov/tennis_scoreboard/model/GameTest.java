@@ -24,7 +24,7 @@ class GameTest {
     }
 
     @Test
-    void pointAtFortyFortyShouldGiveAdvantage() {
+    void addingPointAtFortyFortyShouldGiveAdvantage() {
         vasyaPlayerScore.setPoints(GamePoints.FORTY);
         kolyaPlayerScore.setPoints(GamePoints.FORTY);
 
