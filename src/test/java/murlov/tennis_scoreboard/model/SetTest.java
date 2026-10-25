@@ -29,7 +29,6 @@ class SetTest {
     void shouldStartTieBreakWhenGameScoreIsSixAll() {
         vasyaPlayerScore.setGames(6);
         kolyaPlayerScore.setGames(5);
-        vasyaPlayerScore.setPoints(GamePoints.ZERO);
         kolyaPlayerScore.setPoints(GamePoints.FORTY);
 
         unfinishedMatch.addPoint("Kolya");
