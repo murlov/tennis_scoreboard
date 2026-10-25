@@ -34,8 +34,8 @@ class SetTest {
         unfinishedMatch.addPoint("Kolya");
 
         assertAll(
-                () -> assertNull(vasyaPlayerScore.getPoints(), "Regular points should not be used during a tie-break"),
-                () -> assertNull(kolyaPlayerScore.getPoints(), "Regular points should not be used during a tie-break"),
+                () -> assertNull(vasyaPlayerScore.getPoints(), "Regular points must not be used during a tie-break"),
+                () -> assertNull(kolyaPlayerScore.getPoints(), "Regular points must not be used during a tie-break"),
                 () -> assertNotNull(vasyaPlayerScore.getTieBreakPoints(), "Tiebreak point must be initialized when tiebreak starts"),
                 () -> assertNotNull(kolyaPlayerScore.getTieBreakPoints(), "Tiebreak point must be initialized when tiebreak starts"),
                 () -> assertTrue(unfinishedMatch.isTieBreakInSet(), "Tie-break flag must be true when tie-break starts")
