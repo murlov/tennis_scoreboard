@@ -59,6 +59,34 @@ class SetTest {
         );
     }
 
+    @Test
+    void setMustBeWonAtSevenFiveWhenScoreIsFiveAll() {
+        vasyaPlayerScore.setGames(5);
+        kolyaPlayerScore.setGames(5);
+
+        winGameForPlayer("Vasya");
+
+        assertAll(
+                () -> assertEquals(GamePoints.ZERO, vasyaPlayerScore.getPoints(), "Game points must be zero"),
+                () -> assertEquals(GamePoints.ZERO, kolyaPlayerScore.getPoints(), "Game points must be zero"),
+                () -> assertEquals(6, vasyaPlayerScore.getGames(), "Vasya must have 6 games"),
+                () -> assertEquals(5, kolyaPlayerScore.getGames(), "Kolya must have 5 games"),
+                () -> assertEquals(0, vasyaPlayerScore.getSets(), "Vasya must not have any set"),
+                () -> assertEquals(0, kolyaPlayerScore.getSets(), "Kolya must not have any set")
+        );
+
+        winGameForPlayer("Vasya");
+
+        assertAll(
+                () -> assertEquals(GamePoints.ZERO, vasyaPlayerScore.getPoints(), "Game points must be zero"),
+                () -> assertEquals(GamePoints.ZERO, kolyaPlayerScore.getPoints(), "Game points must be zero"),
+                () -> assertEquals(0, vasyaPlayerScore.getGames(), "Vasya must have 0 games"),
+                () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya must have 0 games"),
+                () -> assertEquals(1, vasyaPlayerScore.getSets(), "Vasya must have 1 set"),
+                () -> assertEquals(0, kolyaPlayerScore.getSets(), "Kolya must not have any set")
+        );
+    }
+
     private void winGameForPlayer(String name) {
         for (int i = 0; i < 4; i++) {
             unfinishedMatch.addPoint(name);
