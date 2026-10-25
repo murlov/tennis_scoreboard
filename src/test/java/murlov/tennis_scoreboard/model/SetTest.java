@@ -29,9 +29,8 @@ class SetTest {
     void shouldStartTieBreakWhenGameScoreIsSixAll() {
         vasyaPlayerScore.setGames(6);
         kolyaPlayerScore.setGames(5);
-        kolyaPlayerScore.setPoints(GamePoints.FORTY);
 
-        unfinishedMatch.addPoint("Kolya");
+        winGameForPlayer("Kolya");
 
         assertAll(
                 () -> assertNull(vasyaPlayerScore.getPoints(), "Regular points must not be used during a tie-break"),
@@ -47,9 +46,8 @@ class SetTest {
     void addingGameAtSixAgainstLowerScoreShouldWinSet(int kolyaGames) {
         vasyaPlayerScore.setGames(5);
         kolyaPlayerScore.setGames(kolyaGames);
-        vasyaPlayerScore.setPoints(GamePoints.FORTY);
 
-        unfinishedMatch.addPoint("Vasya");
+        winGameForPlayer("Vasya");
 
         assertAll(
                 () -> assertEquals(GamePoints.ZERO, vasyaPlayerScore.getPoints(), "Game points must be zero"),
@@ -59,5 +57,11 @@ class SetTest {
                 () -> assertEquals(1, vasyaPlayerScore.getSets(), "Vasya must have 1 set"),
                 () -> assertEquals(0, kolyaPlayerScore.getSets(), "Kolya must not have any set")
         );
+    }
+
+    private void winGameForPlayer(String name) {
+        for (int i = 0; i < 4; i++) {
+            unfinishedMatch.addPoint(name);
+        }
     }
 }
