@@ -88,7 +88,8 @@ class SetTest {
     }
 
     private void winGameForPlayer(String name) {
-        for (int i = 0; i < 4; i++) {
+        int n = unfinishedMatch.isTieBreakInSet() ? 7 : 4;
+        for (int i = 0; i < n; i++) {
             unfinishedMatch.addPoint(name);
         }
     }
