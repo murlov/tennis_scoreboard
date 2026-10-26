@@ -87,6 +87,27 @@ class SetTest {
         );
     }
 
+    @Test
+    void winSetByWinningTieBreak() {
+        vasyaPlayerScore.setGames(6);
+        kolyaPlayerScore.setGames(5);
+
+        winGameForPlayer("Kolya");
+        winGameForPlayer("Kolya");
+
+        assertAll(
+                () -> assertEquals(GamePoints.ZERO, vasyaPlayerScore.getPoints(), "Game points must be zero"),
+                () -> assertEquals(GamePoints.ZERO, kolyaPlayerScore.getPoints(), "Game points must be zero"),
+                () -> assertNull(vasyaPlayerScore.getTieBreakPoints(), "Tie-break points must be null"),
+                () -> assertNull(kolyaPlayerScore.getTieBreakPoints(), "Tie-break points must be null"),
+                () -> assertFalse(unfinishedMatch.isTieBreakInSet(), "Tie-break flag must be false when tie-break end"),
+                () -> assertEquals(0, vasyaPlayerScore.getGames(), "Vasya must have 0 games"),
+                () -> assertEquals(0, kolyaPlayerScore.getGames(), "Kolya must have 0 games"),
+                () -> assertEquals(0, vasyaPlayerScore.getSets(), "Vasya must not have any set"),
+                () -> assertEquals(1, kolyaPlayerScore.getSets(), "Kolya must have 1 set")
+        );
+    }
+
     private void winGameForPlayer(String name) {
         int n = unfinishedMatch.isTieBreakInSet() ? 7 : 4;
         for (int i = 0; i < n; i++) {
