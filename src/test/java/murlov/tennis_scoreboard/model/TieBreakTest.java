@@ -5,19 +5,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TieBreakTest {
-    private PlayerScore vasyaPlayerScore;
-    private PlayerScore kolyaPlayerScore;
-    private UnfinishedMatch unfinishedMatch;
+class TieBreakTest extends AbstractTennisTest{
 
     @BeforeEach
-    void setUp() {
-        vasyaPlayerScore = new PlayerScore(1, "Vasya");
-        kolyaPlayerScore = new PlayerScore(2, "Kolya");
-        unfinishedMatch = new UnfinishedMatch(
-                vasyaPlayerScore,
-                kolyaPlayerScore
-        );
+    void setUpTieBreak() {
+        setUp();
     }
 
     @Test
@@ -62,12 +54,5 @@ class TieBreakTest {
                 () -> assertEquals(0, kolyaPlayerScore.getSets(), "Kolya must not have any set"),
                 () -> assertFalse(unfinishedMatch.isTieBreakInSet(), "Tie-break must finish")
         );
-    }
-
-    private void winGameForPlayer(String name) {
-        int n = unfinishedMatch.isTieBreakInSet() ? 7 : 4;
-        for (int i = 0; i < n; i++) {
-            unfinishedMatch.addPoint(name);
-        }
     }
 }

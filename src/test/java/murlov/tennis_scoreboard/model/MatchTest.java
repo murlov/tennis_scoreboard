@@ -6,20 +6,11 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class MatchTest {
-
-    private PlayerScore vasyaPlayerScore;
-    private PlayerScore kolyaPlayerScore;
-    private UnfinishedMatch unfinishedMatch;
+class MatchTest extends AbstractTennisTest{
 
     @BeforeEach
-    void setUp() {
-        vasyaPlayerScore = new PlayerScore(1, "Vasya");
-        kolyaPlayerScore = new PlayerScore(2, "Kolya");
-        unfinishedMatch = new UnfinishedMatch(
-                vasyaPlayerScore,
-                kolyaPlayerScore
-        );
+    void setUpMatch() {
+        setUp();
     }
 
     @ParameterizedTest
@@ -42,12 +33,5 @@ class MatchTest {
                 () -> assertEquals(sets, kolyaPlayerScore.getSets(), "Kolya must have" + sets + " sets"),
                 () -> assertEquals("Vasya", unfinishedMatch.getWinnerName(), "Vasya must be winner")
         );
-    }
-
-    private void winGameForPlayer(String name) {
-        int n = unfinishedMatch.isTieBreakInSet() ? 7 : 4;
-        for (int i = 0; i < n; i++) {
-            unfinishedMatch.addPoint(name);
-        }
     }
 }

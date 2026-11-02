@@ -7,20 +7,11 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SetTest {
-
-    private PlayerScore vasyaPlayerScore;
-    private PlayerScore kolyaPlayerScore;
-    private UnfinishedMatch unfinishedMatch;
+class SetTest extends AbstractTennisTest{
 
     @BeforeEach
-    void setUp() {
-        vasyaPlayerScore = new PlayerScore(1, "Vasya");
-        kolyaPlayerScore = new PlayerScore(2, "Kolya");
-        unfinishedMatch = new UnfinishedMatch(
-                vasyaPlayerScore,
-                kolyaPlayerScore
-        );
+    void setUpSet() {
+        setUp();
     }
 
     @Test
@@ -104,12 +95,5 @@ class SetTest {
                 () -> assertEquals(0, vasyaPlayerScore.getSets(), "Vasya must not have any set"),
                 () -> assertEquals(1, kolyaPlayerScore.getSets(), "Kolya must have 1 set")
         );
-    }
-
-    private void winGameForPlayer(String name) {
-        int n = unfinishedMatch.isTieBreakInSet() ? 7 : 4;
-        for (int i = 0; i < n; i++) {
-            unfinishedMatch.addPoint(name);
-        }
     }
 }

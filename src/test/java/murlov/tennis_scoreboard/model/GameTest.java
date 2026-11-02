@@ -7,20 +7,11 @@ import org.junit.jupiter.params.provider.EnumSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GameTest {
-
-    private PlayerScore vasyaPlayerScore;
-    private PlayerScore kolyaPlayerScore;
-    private UnfinishedMatch unfinishedMatch;
+class GameTest extends AbstractTennisTest{
 
     @BeforeEach
-    void setUp() {
-        vasyaPlayerScore = new PlayerScore(1, "Vasya");
-        kolyaPlayerScore = new PlayerScore(2, "Kolya");
-        unfinishedMatch = new UnfinishedMatch(
-                vasyaPlayerScore,
-                kolyaPlayerScore
-        );
+    void setUpGame() {
+        setUp();
     }
 
     @Test
