@@ -1,5 +1,6 @@
 package murlov.tennis_scoreboard.controller;
 
+import jakarta.validation.Valid;
 import murlov.tennis_scoreboard.dto.PointRequestDto;
 import murlov.tennis_scoreboard.dto.PointResponseDto;
 import murlov.tennis_scoreboard.mapper.PointMapper;
@@ -26,7 +27,9 @@ public class PointController {
 
     @PostMapping("/matches/{uuid}/point")
     public ResponseEntity<PointResponseDto> addPoint(@PathVariable("uuid") UUID matchId,
-                                     @RequestBody PointRequestDto pointRequestDto) {
+                                     @RequestBody
+                                     @Valid
+                                     PointRequestDto pointRequestDto) {
         UnfinishedMatch unfinishedMatch = matchService.addPoint(matchId, pointRequestDto);
 
         return ResponseEntity.ok(pointMapper.toDto(unfinishedMatch));
