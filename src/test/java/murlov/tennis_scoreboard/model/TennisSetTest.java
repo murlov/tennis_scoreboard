@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SetTest extends AbstractTennisTest{
+class TennisSetTest extends AbstractTennisTest{
 
     @BeforeEach
     void setUpSet() {

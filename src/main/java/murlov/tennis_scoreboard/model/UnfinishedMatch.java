@@ -39,7 +39,7 @@ public class UnfinishedMatch {
     }
 
     private void addTieBreakPoint(PlayerScore playerScore, PlayerScore opponentPlayerScore) {
-        PointResult pointResult = Set.addTieBreakPoint(playerScore, opponentPlayerScore);
+        PointResult pointResult = TennisSet.addTieBreakPoint(playerScore, opponentPlayerScore);
 
         if (pointResult == PointResult.WON) {
             playerScore.setSets(playerScore.getSets() + 1);
@@ -57,7 +57,7 @@ public class UnfinishedMatch {
 
     private void addGamePoint(PlayerScore playerScore, PlayerScore opponentPlayerScore) {
 
-        PointResult pointResult = Set.addGamePoint(playerScore, opponentPlayerScore);
+        PointResult pointResult = TennisSet.addGamePoint(playerScore, opponentPlayerScore);
 
         if (pointResult == PointResult.WON) {
             playerScore.setSets(playerScore.getSets() + 1);

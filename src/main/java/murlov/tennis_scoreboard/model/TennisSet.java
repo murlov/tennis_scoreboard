@@ -1,6 +1,6 @@
 package murlov.tennis_scoreboard.model;
 
-public class Set {
+public class TennisSet {
 
     public static PointResult addGamePoint(PlayerScore playerScore, PlayerScore opponentPlayerScore) {
 
