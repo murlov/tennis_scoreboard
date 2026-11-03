@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 @RestControllerAdvice
@@ -62,6 +63,17 @@ public class GlobalExceptionHandler {
                 .body(
                         new ErrorResponse(
                                 "Unexpected error"
+                        )
+                );
+    }
+
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException() {
+        return ResponseEntity
+                .badRequest()
+                .body(
+                        new ErrorResponse(
+                                "Incorrect type of parameter"
                         )
                 );
     }
