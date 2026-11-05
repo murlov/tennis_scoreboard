@@ -1,7 +1,7 @@
 package murlov.tennis_scoreboard.repository;
 
 import murlov.tennis_scoreboard.exception.DuplicateException;
-import murlov.tennis_scoreboard.model.Player;
+import murlov.tennis_scoreboard.model.entity.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;

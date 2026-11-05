@@ -5,9 +5,9 @@ import murlov.tennis_scoreboard.repository.PlayerRepository;
 import murlov.tennis_scoreboard.dto.MatchRequestDto;
 import murlov.tennis_scoreboard.dto.PointRequestDto;
 import murlov.tennis_scoreboard.exception.NotFoundException;
-import murlov.tennis_scoreboard.model.Player;
-import murlov.tennis_scoreboard.model.PlayerScore;
-import murlov.tennis_scoreboard.model.UnfinishedMatch;
+import murlov.tennis_scoreboard.model.entity.Player;
+import murlov.tennis_scoreboard.model.domain.PlayerScore;
+import murlov.tennis_scoreboard.model.domain.UnfinishedMatch;
 import murlov.tennis_scoreboard.storage.UnfinishedMatchesStorage;
 import org.springframework.stereotype.Service;
 

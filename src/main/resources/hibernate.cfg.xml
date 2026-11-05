@@ -9,8 +9,8 @@
     <property name="format_sql">true</property>
     <property name="hbm2ddl.auto">update</property>
     <property name="connection.provider_class">hikaricp</property>
-    <mapping class="murlov.tennis_scoreboard.model.Player"/>
-    <mapping class="murlov.tennis_scoreboard.model.Match"/>
+    <mapping class="murlov.tennis_scoreboard.model.entity.Player"/>
+    <mapping class="murlov.tennis_scoreboard.model.entity.Match"/>
 
   </session-factory>
 </hibernate-configuration>

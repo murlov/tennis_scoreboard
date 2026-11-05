@@ -1,4 +1,4 @@
-package murlov.tennis_scoreboard.model;
+package murlov.tennis_scoreboard.model.domain;
 
 public enum PointResult {
     IN_PROGRESS,

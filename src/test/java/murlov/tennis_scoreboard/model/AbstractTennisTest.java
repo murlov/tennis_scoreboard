@@ -1,5 +1,8 @@
 package murlov.tennis_scoreboard.model;
 
+import murlov.tennis_scoreboard.model.domain.PlayerScore;
+import murlov.tennis_scoreboard.model.domain.UnfinishedMatch;
+
 public abstract class AbstractTennisTest {
 
     protected PlayerScore vasyaPlayerScore;

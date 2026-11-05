@@ -1,6 +1,6 @@
 package murlov.tennis_scoreboard.storage;
 
-import murlov.tennis_scoreboard.model.UnfinishedMatch;
+import murlov.tennis_scoreboard.model.domain.UnfinishedMatch;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;

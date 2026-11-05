@@ -1,4 +1,4 @@
-package murlov.tennis_scoreboard.model;
+package murlov.tennis_scoreboard.model.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
