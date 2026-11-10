@@ -15,15 +15,15 @@ public class Match {
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Player1", nullable = false)
+    @JoinColumn(name = "first_player_id", nullable = false)
     private Player player1;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Player2", nullable = false)
+    @JoinColumn(name = "second_player_id", nullable = false)
     private Player player2;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Winner")
+    @JoinColumn(name = "winner_id")
     private Player winner;
 
     public Match(Player player1, Player player2, Player winner) {

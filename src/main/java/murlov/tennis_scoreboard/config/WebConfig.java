@@ -1,9 +1,11 @@
 package murlov.tennis_scoreboard.config;
 
+import org.flywaydb.core.Flyway;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
@@ -12,6 +14,22 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class WebConfig {
 
     @Bean
+    public Flyway flyway() {
+        Flyway flyway = Flyway.configure()
+                .dataSource(
+                        System.getenv("DB_URL"),
+                        System.getenv("DB_USERNAME"),
+                        System.getenv("DB_PASSWORD")
+                )
+                .load();
+
+        flyway.migrate();
+
+        return flyway;
+    }
+
+    @Bean
+    @DependsOn("flyway")
     public SessionFactory sessionFactory() {
         org.hibernate.cfg.Configuration configuration = new org.hibernate.cfg.Configuration()
                 .configure()
