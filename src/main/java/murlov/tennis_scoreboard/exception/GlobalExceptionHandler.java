@@ -23,6 +23,17 @@ public class GlobalExceptionHandler {
                 );
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException e) {
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(
+                        new ErrorResponse(
+                                e.getMessage()
+                        )
+                );
+    }
+
     @ExceptionHandler(ValidationException.class)
     public ResponseEntity<ErrorResponse> handleSamePlayerNames(ValidationException e) {
         return ResponseEntity
