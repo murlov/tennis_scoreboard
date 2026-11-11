@@ -22,7 +22,7 @@ Accept: application/json
 }
 
 ### Начисление очка второму игроку
-GET http://localhost:8080/matches/{{id}}/point
+POST http://localhost:8080/matches/{{id}}/point
 Content-Type: application/json
 Accept: application/json
 
