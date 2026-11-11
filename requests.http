@@ -13,7 +13,7 @@ Accept: application/json
 %}
 
 ### Начисление очка первому игроку
-POST http://localhost:8080/matches/{{id}}/point
+POST http://localhost:8080/matches//point
 Content-Type: application/json
 Accept: application/json
 
@@ -22,10 +22,15 @@ Accept: application/json
 }
 
 ### Начисление очка второму игроку
-POST http://localhost:8080/matches/{{id}}/point
+GET http://localhost:8080/matches/{{id}}/point
 Content-Type: application/json
 Accept: application/json
 
 {
   "name": "Alex"
 }
+
+### Получение счёта
+POST http://localhost:8080/matches/{{id}}
+Content-Type: application/json
+Accept: application/json

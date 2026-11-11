@@ -1,15 +1,15 @@
 package murlov.tennis_scoreboard.controller;
 
 import jakarta.validation.Valid;
+import murlov.tennis_scoreboard.dto.MatchResponseDto;
 import murlov.tennis_scoreboard.dto.NewMatchRequestDto;
 import murlov.tennis_scoreboard.dto.NewMatchResponseDto;
 import murlov.tennis_scoreboard.mapper.MatchMapper;
+import murlov.tennis_scoreboard.model.domain.UnfinishedMatch;
 import murlov.tennis_scoreboard.service.MatchService;
 import murlov.tennis_scoreboard.util.validator.MatchValidator;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -33,5 +33,12 @@ public class MatchController {
         UUID uuid = matchService.createMatch(newMatchRequestDto);
 
         return ResponseEntity.ok(matchMapper.toDto(uuid));
+    }
+
+    @GetMapping("/matches/{uuid}")
+    public ResponseEntity<MatchResponseDto> getMatch(@PathVariable("uuid") UUID matchId) {
+        UnfinishedMatch unfinishedMatch = matchService.getMatch(matchId);
+
+        return ResponseEntity.ok(matchMapper.toDto(unfinishedMatch));
     }
 }
