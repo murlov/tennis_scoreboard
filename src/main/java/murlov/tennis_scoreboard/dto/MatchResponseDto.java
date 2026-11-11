@@ -1,6 +1,7 @@
 package murlov.tennis_scoreboard.dto;
 
-import java.util.UUID;
-
-public record MatchResponseDto(UUID id) {
+public record MatchResponseDto(PlayerScoreDto firstPlayerScore,
+                               PlayerScoreDto secondPlayerScore,
+                               String winnerName
+) {
 }

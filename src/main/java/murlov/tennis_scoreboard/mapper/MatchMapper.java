@@ -1,6 +1,6 @@
 package murlov.tennis_scoreboard.mapper;
 
-import murlov.tennis_scoreboard.dto.MatchResponseDto;
+import murlov.tennis_scoreboard.dto.NewMatchResponseDto;
 import org.mapstruct.Mapper;
 
 import java.util.UUID;
@@ -9,4 +9,5 @@ import java.util.UUID;
 public interface MatchMapper {
 
     MatchResponseDto toDto(UUID id);
+    NewMatchResponseDto toDto(UUID id);
 }

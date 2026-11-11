@@ -1,8 +1,8 @@
 package murlov.tennis_scoreboard.controller;
 
 import jakarta.validation.Valid;
-import murlov.tennis_scoreboard.dto.MatchRequestDto;
-import murlov.tennis_scoreboard.dto.MatchResponseDto;
+import murlov.tennis_scoreboard.dto.NewMatchRequestDto;
+import murlov.tennis_scoreboard.dto.NewMatchResponseDto;
 import murlov.tennis_scoreboard.mapper.MatchMapper;
 import murlov.tennis_scoreboard.service.MatchService;
 import murlov.tennis_scoreboard.util.validator.MatchValidator;
@@ -24,13 +24,13 @@ public class MatchController {
     }
 
     @PostMapping("/matches")
-    public ResponseEntity<MatchResponseDto> createMatch(
+    public ResponseEntity<NewMatchResponseDto> createMatch(
             @RequestBody
             @Valid
-            MatchRequestDto matchRequestDto) {
-        MatchValidator.validate(matchRequestDto);
+            NewMatchRequestDto newMatchRequestDto) {
+        MatchValidator.validate(newMatchRequestDto);
 
-        UUID uuid = matchService.createMatch(matchRequestDto);
+        UUID uuid = matchService.createMatch(newMatchRequestDto);
 
         return ResponseEntity.ok(matchMapper.toDto(uuid));
     }
