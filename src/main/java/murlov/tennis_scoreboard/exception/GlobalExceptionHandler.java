@@ -14,7 +14,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NoHandlerFoundException.class)
-    public ResponseEntity<ErrorResponse> handleHandlerNotFound() {
+    public ResponseEntity<ErrorResponse> handleNoHandlerFoundException() {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorResponse> handleNotFound(NotFoundException e) {
+    public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body(
@@ -36,7 +36,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ValidationException.class)
-    public ResponseEntity<ErrorResponse> handleSamePlayerNames(ValidationException e) {
+    public ResponseEntity<ErrorResponse> handleValidationException(ValidationException e) {
         return ResponseEntity
                 .badRequest()
                 .body(
@@ -47,7 +47,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handleNotValidArgument() {
+    public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException() {
         return ResponseEntity
                 .badRequest()
                 .body(
