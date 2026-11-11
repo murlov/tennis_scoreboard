@@ -3,6 +3,7 @@ package murlov.tennis_scoreboard.exception;
 import murlov.tennis_scoreboard.dto.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -85,6 +86,17 @@ public class GlobalExceptionHandler {
                 .body(
                         new ErrorResponse(
                                 "Incorrect type of parameter"
+                        )
+                );
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ResponseEntity<ErrorResponse> handleHttpRequestMethodNotSupportedException() {
+        return ResponseEntity
+                .status(HttpStatus.METHOD_NOT_ALLOWED)
+                .body(
+                        new ErrorResponse(
+                                "Request method not supported"
                         )
                 );
     }
