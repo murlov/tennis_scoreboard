@@ -9,26 +9,26 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "matches")
-public class Match {
+public class MatchEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "first_player_id", nullable = false)
-    private Player player1;
+    private PlayerEntity playerEntity1;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "second_player_id", nullable = false)
-    private Player player2;
+    private PlayerEntity playerEntity2;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "winner_id")
-    private Player winner;
+    private PlayerEntity winner;
 
-    public Match(Player player1, Player player2, Player winner) {
-        this.player1 = player1;
-        this.player2 = player2;
+    public MatchEntity(PlayerEntity playerEntity1, PlayerEntity playerEntity2, PlayerEntity winner) {
+        this.playerEntity1 = playerEntity1;
+        this.playerEntity2 = playerEntity2;
         this.winner = winner;
     }
 }

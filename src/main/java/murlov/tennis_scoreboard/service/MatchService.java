@@ -5,7 +5,7 @@ import murlov.tennis_scoreboard.repository.PlayerRepository;
 import murlov.tennis_scoreboard.dto.NewMatchRequestDto;
 import murlov.tennis_scoreboard.dto.PointRequestDto;
 import murlov.tennis_scoreboard.exception.NotFoundException;
-import murlov.tennis_scoreboard.model.entity.Player;
+import murlov.tennis_scoreboard.model.entity.PlayerEntity;
 import murlov.tennis_scoreboard.model.domain.PlayerScore;
 import murlov.tennis_scoreboard.model.domain.UnfinishedMatch;
 import murlov.tennis_scoreboard.storage.UnfinishedMatchesStorage;
@@ -27,21 +27,21 @@ public class MatchService {
     }
 
     public UUID createMatch(NewMatchRequestDto newMatchRequestDto) {
-        Player firstPlayer = playerRepository
+        PlayerEntity firstPlayerEntity = playerRepository
                 .getByName(newMatchRequestDto.firstPlayerName())
                 .orElseGet(() -> playerRepository.save(
                         newMatchRequestDto.firstPlayerName()
                 ));
 
-        Player secondPlayer = playerRepository
+        PlayerEntity secondPlayerEntity = playerRepository
                 .getByName(newMatchRequestDto.secondPlayerName())
                 .orElseGet(() -> playerRepository.save(
                         newMatchRequestDto.secondPlayerName()
                 ));
 
         UnfinishedMatch unfinishedMatch = new UnfinishedMatch(
-                new PlayerScore(firstPlayer.getId(), firstPlayer.getName()),
-                new PlayerScore(secondPlayer.getId(), secondPlayer.getName())
+                new PlayerScore(firstPlayerEntity.getId(), firstPlayerEntity.getName()),
+                new PlayerScore(secondPlayerEntity.getId(), secondPlayerEntity.getName())
         );
 
         unfinishedMatchesStorage.save(unfinishedMatch);

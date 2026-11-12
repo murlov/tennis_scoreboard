@@ -1,7 +1,7 @@
 package murlov.tennis_scoreboard.repository;
 
 import murlov.tennis_scoreboard.exception.DuplicateException;
-import murlov.tennis_scoreboard.model.entity.Player;
+import murlov.tennis_scoreboard.model.entity.PlayerEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -19,27 +19,27 @@ public final class PlayerRepository {
         this.sessionFactory = sessionFactory;
     }
 
-    public Optional<Player> getByName(String name) {
+    public Optional<PlayerEntity> getByName(String name) {
         try (Session session = sessionFactory.openSession()) {
             return session.createQuery(
-                            "FROM Player p WHERE p.name = :name",
-                            Player.class
+                            "FROM PlayerEntity p WHERE p.name = :name",
+                            PlayerEntity.class
                     )
                     .setParameter("name", name)
                     .uniqueResultOptional();
         }
     }
 
-    public Player save(String name) {
+    public PlayerEntity save(String name) {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
 
-            Player player = new Player(name);
-            session.persist(player);
+            PlayerEntity playerEntity = new PlayerEntity(name);
+            session.persist(playerEntity);
 
             transaction.commit();
 
-            return player;
+            return playerEntity;
         } catch (ConstraintViolationException e) {
             throw new DuplicateException(
                     "Player with name '" + name + "' already exists"

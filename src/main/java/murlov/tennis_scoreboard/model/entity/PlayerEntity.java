@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @Table(name = "players")
-public class Player {
+public class PlayerEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -18,7 +18,7 @@ public class Player {
     @Column(unique = true, nullable = false)
     private String name;
 
-    public Player(String name) {
+    public PlayerEntity(String name) {
         this.name = name;
     }
 }

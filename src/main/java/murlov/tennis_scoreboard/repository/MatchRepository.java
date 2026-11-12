@@ -1,7 +1,7 @@
 package murlov.tennis_scoreboard.repository;
 
-import murlov.tennis_scoreboard.model.entity.Match;
-import murlov.tennis_scoreboard.model.entity.Player;
+import murlov.tennis_scoreboard.model.entity.MatchEntity;
+import murlov.tennis_scoreboard.model.entity.PlayerEntity;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -21,10 +21,10 @@ public final class MatchRepository {
         try (Session session = sessionFactory.openSession()) {
             Transaction transaction = session.beginTransaction();
 
-            session.persist(new Match(
-                    session.getReference(Player.class, firstPlayerId),
-                    session.getReference(Player.class, secondPlayerId),
-                    session.getReference(Player.class, winnerId)
+            session.persist(new MatchEntity(
+                    session.getReference(PlayerEntity.class, firstPlayerId),
+                    session.getReference(PlayerEntity.class, secondPlayerId),
+                    session.getReference(PlayerEntity.class, winnerId)
             ));
 
             transaction.commit();
