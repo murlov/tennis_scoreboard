@@ -1,6 +1,6 @@
 package murlov.tennis_scoreboard.mapper;
 
-import murlov.tennis_scoreboard.dto.MatchResponseDto;
+import murlov.tennis_scoreboard.dto.UnfinishedMatchResponseDto;
 import murlov.tennis_scoreboard.dto.NewMatchResponseDto;
 import murlov.tennis_scoreboard.model.domain.UnfinishedMatch;
 import org.mapstruct.Mapper;
@@ -12,5 +12,5 @@ public interface MatchMapper {
 
     NewMatchResponseDto toDto(UUID id);
 
-    MatchResponseDto toDto(UnfinishedMatch unfinishedMatch);
+    UnfinishedMatchResponseDto toDto(UnfinishedMatch unfinishedMatch);
 }

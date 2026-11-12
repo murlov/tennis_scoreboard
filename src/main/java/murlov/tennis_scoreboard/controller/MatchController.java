@@ -1,7 +1,7 @@
 package murlov.tennis_scoreboard.controller;
 
 import jakarta.validation.Valid;
-import murlov.tennis_scoreboard.dto.MatchResponseDto;
+import murlov.tennis_scoreboard.dto.UnfinishedMatchResponseDto;
 import murlov.tennis_scoreboard.dto.NewMatchRequestDto;
 import murlov.tennis_scoreboard.dto.NewMatchResponseDto;
 import murlov.tennis_scoreboard.mapper.MatchMapper;
@@ -36,7 +36,7 @@ public class MatchController {
     }
 
     @GetMapping("/matches/{uuid}")
-    public ResponseEntity<MatchResponseDto> getMatch(@PathVariable("uuid") UUID matchId) {
+    public ResponseEntity<UnfinishedMatchResponseDto> getMatch(@PathVariable("uuid") UUID matchId) {
         UnfinishedMatch unfinishedMatch = matchService.getMatch(matchId);
 
         return ResponseEntity.ok(matchMapper.toDto(unfinishedMatch));
