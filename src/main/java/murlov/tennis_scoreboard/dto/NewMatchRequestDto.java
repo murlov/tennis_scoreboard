@@ -12,4 +12,8 @@ public record NewMatchRequestDto(
         @Size(max = 50)
         String secondPlayerName
 ){
+        public NewMatchRequestDto {
+                firstPlayerName = firstPlayerName.strip();
+                secondPlayerName = secondPlayerName.strip();
+        }
 }

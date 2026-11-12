@@ -8,4 +8,7 @@ public record PointRequestDto(
         @Size(max = 50)
         String name
 ) {
+        public PointRequestDto {
+                name = name.strip();
+        }
 }
