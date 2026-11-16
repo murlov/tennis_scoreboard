@@ -16,19 +16,19 @@ public class MatchEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "first_player_id", nullable = false)
-    private PlayerEntity playerEntity1;
+    private PlayerEntity firstPlayerEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "second_player_id", nullable = false)
-    private PlayerEntity playerEntity2;
+    private PlayerEntity secondPlayerEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "winner_id")
-    private PlayerEntity winner;
+    private PlayerEntity winnerEntity;
 
-    public MatchEntity(PlayerEntity playerEntity1, PlayerEntity playerEntity2, PlayerEntity winner) {
-        this.playerEntity1 = playerEntity1;
-        this.playerEntity2 = playerEntity2;
-        this.winner = winner;
+    public MatchEntity(PlayerEntity firstPlayerEntity, PlayerEntity secondPlayerEntity, PlayerEntity winnerEntity) {
+        this.firstPlayerEntity = firstPlayerEntity;
+        this.secondPlayerEntity = secondPlayerEntity;
+        this.winnerEntity = winnerEntity;
     }
 }
