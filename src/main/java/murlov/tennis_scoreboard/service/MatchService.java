@@ -1,5 +1,6 @@
 package murlov.tennis_scoreboard.service;
 
+import murlov.tennis_scoreboard.model.domain.FinishedMatch;
 import murlov.tennis_scoreboard.model.domain.Player;
 import murlov.tennis_scoreboard.repository.MatchRepository;
 import murlov.tennis_scoreboard.repository.PlayerRepository;
@@ -11,6 +12,7 @@ import murlov.tennis_scoreboard.model.domain.UnfinishedMatch;
 import murlov.tennis_scoreboard.storage.UnfinishedMatchesStorage;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -50,7 +52,7 @@ public class MatchService {
     }
 
     public UnfinishedMatch addPoint(UUID matchUuid, PointRequestDto pointRequestDto) {
-        UnfinishedMatch unfinishedMatch = getMatch(matchUuid);
+        UnfinishedMatch unfinishedMatch = getUnfinishedMatch(matchUuid);
         unfinishedMatch.addPoint(pointRequestDto.name());
 
         if (unfinishedMatch.getWinnerName() != null) {
@@ -60,7 +62,7 @@ public class MatchService {
         return unfinishedMatch;
     }
 
-    public UnfinishedMatch getMatch(UUID matchUuid) {
+    public UnfinishedMatch getUnfinishedMatch(UUID matchUuid) {
         return unfinishedMatchesStorage.get(matchUuid)
                 .orElseThrow(
                         () -> new NotFoundException(
@@ -69,6 +71,18 @@ public class MatchService {
                                         " not found"
                         )
                 );
+    }
+
+    public List<FinishedMatch> getFinishedMatches(Integer page, String playerName) {
+        if (page == null) {
+            page = 1;
+        }
+
+        if (playerName == null) {
+            return matchRepository.getFinishedMatches(page);
+        } else {
+            return matchRepository.getFinishedMatchesByName(page, playerName);
+        }
     }
 
     private void saveMatch(UnfinishedMatch unfinishedMatch, UUID matchUuid) {
