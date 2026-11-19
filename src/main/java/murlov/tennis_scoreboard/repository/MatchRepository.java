@@ -1,5 +1,6 @@
 package murlov.tennis_scoreboard.repository;
 
+import lombok.RequiredArgsConstructor;
 import murlov.tennis_scoreboard.mapper.MatchMapper;
 import murlov.tennis_scoreboard.model.domain.FinishedMatch;
 import murlov.tennis_scoreboard.model.entity.MatchEntity;
@@ -12,17 +13,13 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public final class MatchRepository {
 
     private static final int PAGE_SIZE = 5;
 
     private final SessionFactory sessionFactory;
     private final MatchMapper matchMapper;
-
-    public MatchRepository(SessionFactory sessionFactory, MatchMapper matchMapper) {
-        this.sessionFactory = sessionFactory;
-        this.matchMapper = matchMapper;
-    }
 
     public void saveFinishedMatch(int firstPlayerId, int secondPlayerId, int winnerId) {
 

@@ -1,6 +1,7 @@
 package murlov.tennis_scoreboard.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import murlov.tennis_scoreboard.dto.PointRequestDto;
 import murlov.tennis_scoreboard.dto.PointResponseDto;
 import murlov.tennis_scoreboard.mapper.PointMapper;
@@ -15,15 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
+@RequiredArgsConstructor
 public class PointController {
 
     private final MatchService matchService;
     private final PointMapper pointMapper;
-
-    public PointController(MatchService matchService, PointMapper pointMapper) {
-        this.matchService = matchService;
-        this.pointMapper = pointMapper;
-    }
 
     @PostMapping("/matches/{uuid}/point")
     public ResponseEntity<PointResponseDto> addPoint(@PathVariable("uuid") UUID matchId,

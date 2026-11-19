@@ -1,5 +1,6 @@
 package murlov.tennis_scoreboard.service;
 
+import lombok.RequiredArgsConstructor;
 import murlov.tennis_scoreboard.model.domain.FinishedMatch;
 import murlov.tennis_scoreboard.model.domain.Player;
 import murlov.tennis_scoreboard.repository.MatchRepository;
@@ -16,17 +17,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class MatchService {
 
     private final PlayerRepository playerRepository;
     private final MatchRepository matchRepository;
     private final UnfinishedMatchesStorage unfinishedMatchesStorage;
-
-    public MatchService(PlayerRepository playerRepository, MatchRepository matchRepository, UnfinishedMatchesStorage unfinishedMatchesStorage) {
-        this.playerRepository = playerRepository;
-        this.matchRepository = matchRepository;
-        this.unfinishedMatchesStorage = unfinishedMatchesStorage;
-    }
 
     public UUID createMatch(NewMatchRequestDto newMatchRequestDto) {
         Player firstPlayer = playerRepository

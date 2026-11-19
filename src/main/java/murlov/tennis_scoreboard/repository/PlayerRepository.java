@@ -1,5 +1,6 @@
 package murlov.tennis_scoreboard.repository;
 
+import lombok.RequiredArgsConstructor;
 import murlov.tennis_scoreboard.exception.DuplicateException;
 import murlov.tennis_scoreboard.mapper.PlayerMapper;
 import murlov.tennis_scoreboard.model.domain.Player;
@@ -13,15 +14,11 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
+@RequiredArgsConstructor
 public final class PlayerRepository {
 
     private final SessionFactory sessionFactory;
     private final PlayerMapper playerMapper;
-
-    public PlayerRepository(SessionFactory sessionFactory, PlayerMapper playerMapper) {
-        this.sessionFactory = sessionFactory;
-        this.playerMapper = playerMapper;
-    }
 
     public Optional<Player> getByName(String name) {
         try (Session session = sessionFactory.openSession()) {

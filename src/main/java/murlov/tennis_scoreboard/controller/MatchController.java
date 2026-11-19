@@ -1,6 +1,7 @@
 package murlov.tennis_scoreboard.controller;
 
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import murlov.tennis_scoreboard.dto.FinishedMatchResponseDto;
 import murlov.tennis_scoreboard.dto.UnfinishedMatchResponseDto;
 import murlov.tennis_scoreboard.dto.NewMatchRequestDto;
@@ -17,14 +18,10 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@RequiredArgsConstructor
 public class MatchController {
     private final MatchService matchService;
     private final MatchMapper matchMapper;
-
-    public MatchController(MatchService matchService, MatchMapper matchMapper) {
-        this.matchService = matchService;
-        this.matchMapper = matchMapper;
-    }
 
     @PostMapping("/matches")
     public ResponseEntity<NewMatchResponseDto> createMatch(
