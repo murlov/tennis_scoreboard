@@ -9,8 +9,8 @@ import java.util.UUID;
 @Getter
 public class UnfinishedMatch {
     private final UUID uuid;
-    private PlayerScore firstPlayerScore;
-    private PlayerScore secondPlayerScore;
+    private final PlayerScore firstPlayerScore;
+    private final PlayerScore secondPlayerScore;
     private String winnerName;
     private boolean isTieBreakInSet;
 
