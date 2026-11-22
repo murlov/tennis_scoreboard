@@ -1,6 +1,7 @@
 package murlov.tennis_scoreboard.service;
 
 import lombok.RequiredArgsConstructor;
+import murlov.tennis_scoreboard.exception.MatchAlreadyFinishedException;
 import murlov.tennis_scoreboard.model.domain.FinishedMatch;
 import murlov.tennis_scoreboard.model.domain.Player;
 import murlov.tennis_scoreboard.repository.MatchRepository;
