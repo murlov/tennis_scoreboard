@@ -104,4 +104,13 @@ public class GlobalExceptionHandler {
                         )
                 );
     }
+
+    @ExceptionHandler(MatchAlreadyFinishedException.class)
+    public ResponseEntity<ErrorResponse> handleMatchAlreadyFinishedException(MatchAlreadyFinishedException e) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(
+                        new ErrorResponse(e.getMessage())
+                );
+    }
 }
