@@ -52,7 +52,7 @@ public class MatchService {
         UnfinishedMatch unfinishedMatch = getUnfinishedMatch(matchUuid);
 
         synchronized (unfinishedMatch) {
-            if (unfinishedMatchesStorage.isExists(unfinishedMatch)) {
+            if (unfinishedMatchesStorage.isExists(matchUuid)) {
                 unfinishedMatch.addPoint(pointRequestDto.name());
 
                 if (unfinishedMatch.getWinnerName() != null) {

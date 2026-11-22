@@ -25,8 +25,8 @@ public class UnfinishedMatchesStorage {
         return Optional.ofNullable(matches.get(uuid));
     }
 
-    public boolean isExists(UnfinishedMatch unfinishedMatch) {
-        return matches.containsValue(unfinishedMatch);
+    public boolean isExists(UUID matchUuid) {
+        return matches.containsKey(matchUuid);
     }
 
     public void remove(UUID uuid) {
