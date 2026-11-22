@@ -13,7 +13,7 @@ public record NewMatchRequestDto(
         String secondPlayerName
 ){
         public NewMatchRequestDto {
-                firstPlayerName = firstPlayerName.strip();
-                secondPlayerName = secondPlayerName.strip();
+                firstPlayerName = firstPlayerName == null ? null : firstPlayerName.strip();
+                secondPlayerName = secondPlayerName == null ? null : secondPlayerName.strip();
         }
 }
