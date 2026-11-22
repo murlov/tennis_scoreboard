@@ -49,10 +49,19 @@ public class MatchService {
 
     public UnfinishedMatch addPoint(UUID matchUuid, PointRequestDto pointRequestDto) {
         UnfinishedMatch unfinishedMatch = getUnfinishedMatch(matchUuid);
-        unfinishedMatch.addPoint(pointRequestDto.name());
 
-        if (unfinishedMatch.getWinnerName() != null) {
-            saveMatch(unfinishedMatch, matchUuid);
+        synchronized (unfinishedMatch) {
+            if (unfinishedMatchesStorage.isExists(unfinishedMatch)) {
+                unfinishedMatch.addPoint(pointRequestDto.name());
+
+                if (unfinishedMatch.getWinnerName() != null) {
+                    saveMatch(unfinishedMatch, matchUuid);
+                }
+            } else {
+                throw new MatchAlreadyFinishedException(
+                        "Math with UUID " + matchUuid + " is already finished"
+                );
+            }
         }
 
         return unfinishedMatch;

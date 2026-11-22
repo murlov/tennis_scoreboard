@@ -23,7 +23,7 @@ public class UnfinishedMatch {
         this.secondPlayerScore = secondPlayerScore;
     }
 
-    public synchronized void addPoint(String name) {
+    public void addPoint(String name) {
         PlayerScore playerScore = getPlayerScoreByName(name)
                 .orElseThrow(() -> new ValidationException(
                         "Wrong player name"
