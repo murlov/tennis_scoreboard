@@ -1,12 +1,14 @@
 package murlov.tennis_scoreboard.model.domain;
 
 import lombok.Getter;
+import lombok.ToString;
 import murlov.tennis_scoreboard.exception.ValidationException;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @Getter
+@ToString
 public class UnfinishedMatch {
     private final UUID uuid;
     private final PlayerScore firstPlayerScore;
