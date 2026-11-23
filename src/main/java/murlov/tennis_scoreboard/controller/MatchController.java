@@ -1,6 +1,7 @@
 package murlov.tennis_scoreboard.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import murlov.tennis_scoreboard.dto.FinishedMatchResponseDto;
 import murlov.tennis_scoreboard.dto.UnfinishedMatchResponseDto;
@@ -44,7 +45,9 @@ public class MatchController {
 
     @GetMapping("/matches")
     public ResponseEntity<List<FinishedMatchResponseDto>> getMatches(
-            @RequestParam(name = "page", required = false) Integer page,
+            @RequestParam(name = "page", required = false)
+            @Min(1)
+            Integer page,
             @RequestParam(name = "playerName", required = false) String playerName
     ) {
         List<FinishedMatch> finishedMatches = matchService.getFinishedMatches(page, playerName);
