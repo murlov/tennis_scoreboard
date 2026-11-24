@@ -2,6 +2,7 @@ package murlov.tennis_scoreboard.model.domain;
 
 import lombok.Getter;
 import lombok.ToString;
+import murlov.tennis_scoreboard.exception.MatchAlreadyFinishedException;
 import murlov.tennis_scoreboard.exception.ValidationException;
 
 import java.util.Optional;
@@ -24,6 +25,13 @@ public class UnfinishedMatch {
     }
 
     public void addPoint(String name) {
+
+        if (winnerName != null) {
+            throw new MatchAlreadyFinishedException(
+                    "Math with UUID " + uuid + " is already finished"
+            );
+        }
+
         PlayerScore playerScore = getPlayerScoreByName(name)
                 .orElseThrow(() -> new ValidationException(
                         "Wrong player name"
