@@ -1,6 +1,9 @@
 package murlov.tennis_scoreboard.repository;
 
+import jakarta.persistence.PersistenceException;
+import jakarta.persistence.RollbackException;
 import lombok.RequiredArgsConstructor;
+import murlov.tennis_scoreboard.exception.DatabaseException;
 import murlov.tennis_scoreboard.exception.DuplicateException;
 import murlov.tennis_scoreboard.mapper.PlayerMapper;
 import murlov.tennis_scoreboard.model.domain.Player;
@@ -30,12 +33,16 @@ public final class PlayerRepository {
                     .uniqueResultOptional();
 
             return playerEntity.map(playerMapper::toDomain);
+        } catch (PersistenceException e) {
+            throw new DatabaseException("Database operation failed", e);
         }
     }
 
     public Player save(String name) {
+        Transaction transaction = null;
+
         try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+            transaction = session.beginTransaction();
 
             PlayerEntity playerEntity = new PlayerEntity(name);
             session.persist(playerEntity);
@@ -47,6 +54,16 @@ public final class PlayerRepository {
             throw new DuplicateException(
                     "Player with name '" + name + "' already exists"
             );
+        } catch (PersistenceException e) {
+            if (transaction != null && transaction.isActive()) {
+                try {
+                    transaction.rollback();
+                } catch (RollbackException rollbackException) {
+                    e.addSuppressed(rollbackException);
+                }
+            }
+
+            throw new DatabaseException("Database operation failed", e);
         }
     }
 }

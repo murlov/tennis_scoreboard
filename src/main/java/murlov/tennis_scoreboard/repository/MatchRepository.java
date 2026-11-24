@@ -1,6 +1,9 @@
 package murlov.tennis_scoreboard.repository;
 
+import jakarta.persistence.PersistenceException;
+import jakarta.persistence.RollbackException;
 import lombok.RequiredArgsConstructor;
+import murlov.tennis_scoreboard.exception.DatabaseException;
 import murlov.tennis_scoreboard.mapper.MatchMapper;
 import murlov.tennis_scoreboard.model.domain.FinishedMatch;
 import murlov.tennis_scoreboard.model.entity.MatchEntity;
@@ -23,8 +26,9 @@ public final class MatchRepository {
 
     public void saveFinishedMatch(int firstPlayerId, int secondPlayerId, int winnerId) {
 
+        Transaction transaction = null;
         try (Session session = sessionFactory.openSession()) {
-            Transaction transaction = session.beginTransaction();
+            transaction = session.beginTransaction();
 
             session.persist(new MatchEntity(
                     session.getReference(PlayerEntity.class, firstPlayerId),
@@ -33,6 +37,16 @@ public final class MatchRepository {
             ));
 
             transaction.commit();
+        } catch (PersistenceException e) {
+            if (transaction != null && transaction.isActive()) {
+                try {
+                    transaction.rollback();
+                } catch (RollbackException rollbackException) {
+                    e.addSuppressed(rollbackException);
+                }
+            }
+
+            throw new DatabaseException("Database operation failed", e);
         }
     }
 
@@ -47,6 +61,8 @@ public final class MatchRepository {
                     .getResultList();
 
             return matchMapper.toDomain(matchEntities);
+        } catch (PersistenceException e) {
+            throw new DatabaseException("Database operation failed", e);
         }
     }
 
@@ -64,6 +80,8 @@ public final class MatchRepository {
                     .getResultList();
 
             return matchMapper.toDomain(matchEntities);
+        } catch (PersistenceException e) {
+            throw new DatabaseException("Database operation failed", e);
         }
     }
 }
