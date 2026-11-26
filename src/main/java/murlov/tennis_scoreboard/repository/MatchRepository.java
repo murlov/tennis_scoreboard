@@ -53,7 +53,8 @@ public final class MatchRepository {
     public List<FinishedMatch> getFinishedMatches(Integer page) {
         try (Session session = sessionFactory.openSession()) {
             List<MatchEntity> matchEntities = session.createQuery(
-                    "FROM MatchEntity m",
+                    "FROM MatchEntity m " +
+                            "ORDER BY m.id DESC",
                     MatchEntity.class
                     )
                     .setFirstResult((page - 1) * PAGE_SIZE)
@@ -70,6 +71,9 @@ public final class MatchRepository {
         try (Session session = sessionFactory.openSession()) {
             List<MatchEntity> matchEntities = session.createQuery(
                             "FROM MatchEntity m " +
+                                    "JOIN FETCH m.firstPlayerEntity " +
+                                    "JOIN FETCH m.secondPlayerEntity " +
+                                    "JOIN FETCH m.winnerEntity " +
                                     "WHERE m.firstPlayerEntity.name = :playerName " +
                                     "OR m.secondPlayerEntity.name = :playerName",
                             MatchEntity.class
