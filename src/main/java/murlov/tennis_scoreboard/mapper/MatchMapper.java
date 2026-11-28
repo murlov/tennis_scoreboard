@@ -5,6 +5,7 @@ import murlov.tennis_scoreboard.dto.UnfinishedMatchResponseDto;
 import murlov.tennis_scoreboard.dto.NewMatchResponseDto;
 import murlov.tennis_scoreboard.model.domain.FinishedMatch;
 import murlov.tennis_scoreboard.model.domain.UnfinishedMatch;
+import murlov.tennis_scoreboard.model.domain.snapshot.UnfinishedMatchSnapshot;
 import murlov.tennis_scoreboard.model.entity.MatchEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,7 +18,9 @@ public interface MatchMapper {
 
     NewMatchResponseDto toDto(UUID id);
 
-    UnfinishedMatchResponseDto toDto(UnfinishedMatch unfinishedMatch);
+    UnfinishedMatchResponseDto toDto(UnfinishedMatchSnapshot unfinishedMatchSnapshot);
+
+    UnfinishedMatchSnapshot toSnapshot(UnfinishedMatch unfinishedMatch);
 
     @Mapping(target = "firstPlayerName", source = "firstPlayerEntity.name")
     @Mapping(target = "secondPlayerName", source = "secondPlayerEntity.name")

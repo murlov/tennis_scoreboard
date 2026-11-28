@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import murlov.tennis_scoreboard.dto.PointRequestDto;
 import murlov.tennis_scoreboard.dto.PointResponseDto;
 import murlov.tennis_scoreboard.mapper.PointMapper;
-import murlov.tennis_scoreboard.model.domain.UnfinishedMatch;
+import murlov.tennis_scoreboard.model.domain.snapshot.UnfinishedMatchSnapshot;
 import murlov.tennis_scoreboard.service.MatchService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,8 +27,8 @@ public class PointController {
                                      @RequestBody
                                      @Valid
                                      PointRequestDto pointRequestDto) {
-        UnfinishedMatch unfinishedMatch = matchService.addPoint(matchId, pointRequestDto);
+        UnfinishedMatchSnapshot unfinishedMatchSnapshot = matchService.addPoint(matchId, pointRequestDto);
 
-        return ResponseEntity.ok(pointMapper.toDto(unfinishedMatch));
+        return ResponseEntity.ok(pointMapper.toDto(unfinishedMatchSnapshot));
     }
 }

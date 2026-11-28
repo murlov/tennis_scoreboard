@@ -1,9 +1,6 @@
 package murlov.tennis_scoreboard.model.domain.snapshot;
 
-import java.util.UUID;
-
-public record UnfinishedMatchSnapshot(UUID uuid,
-                                      PlayerScoreSnapshot firstPlayerScoreSnapshot,
-                                      PlayerScoreSnapshot secondPlayerScoreSnapshot,
+public record UnfinishedMatchSnapshot(PlayerScoreSnapshot firstPlayerScore,
+                                      PlayerScoreSnapshot secondPlayerScore,
                                       String winnerName) {
 }

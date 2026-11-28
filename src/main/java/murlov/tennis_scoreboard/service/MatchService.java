@@ -2,8 +2,10 @@ package murlov.tennis_scoreboard.service;
 
 import lombok.RequiredArgsConstructor;
 import murlov.tennis_scoreboard.exception.MatchAlreadyFinishedException;
+import murlov.tennis_scoreboard.mapper.MatchMapper;
 import murlov.tennis_scoreboard.model.domain.FinishedMatch;
 import murlov.tennis_scoreboard.model.domain.Player;
+import murlov.tennis_scoreboard.model.domain.snapshot.UnfinishedMatchSnapshot;
 import murlov.tennis_scoreboard.repository.MatchRepository;
 import murlov.tennis_scoreboard.repository.PlayerRepository;
 import murlov.tennis_scoreboard.dto.NewMatchRequestDto;
@@ -24,6 +26,7 @@ public class MatchService {
     private final PlayerRepository playerRepository;
     private final MatchRepository matchRepository;
     private final UnfinishedMatchesStorage unfinishedMatchesStorage;
+    private final MatchMapper matchMapper;
 
     public UUID createMatch(NewMatchRequestDto newMatchRequestDto) {
         Player firstPlayer = playerRepository
@@ -48,7 +51,7 @@ public class MatchService {
         return unfinishedMatch.getUuid();
     }
 
-    public UnfinishedMatch addPoint(UUID matchUuid, PointRequestDto pointRequestDto) {
+    public UnfinishedMatchSnapshot addPoint(UUID matchUuid, PointRequestDto pointRequestDto) {
         UnfinishedMatch unfinishedMatch = getUnfinishedMatch(matchUuid);
 
         synchronized (unfinishedMatch) {
@@ -58,25 +61,22 @@ public class MatchService {
                 if (unfinishedMatch.getWinnerName() != null) {
                     saveMatch(unfinishedMatch, matchUuid);
                 }
+
+                return matchMapper.toSnapshot(unfinishedMatch);
             } else {
                 throw new MatchAlreadyFinishedException(
                         "Math with UUID " + matchUuid + " is already finished"
                 );
             }
         }
-
-        return unfinishedMatch;
     }
 
-    public UnfinishedMatch getUnfinishedMatch(UUID matchUuid) {
-        return unfinishedMatchesStorage.get(matchUuid)
-                .orElseThrow(
-                        () -> new NotFoundException(
-                                "Match with UUID " +
-                                        matchUuid +
-                                        " not found"
-                        )
-                );
+    public UnfinishedMatchSnapshot getUnfinishedMatchSnapshot(UUID matchUuid) {
+        UnfinishedMatch unfinishedMatch = getUnfinishedMatch(matchUuid);
+
+        synchronized (unfinishedMatch) {
+            return matchMapper.toSnapshot(unfinishedMatch);
+        }
     }
 
     public List<FinishedMatch> getFinishedMatches(Integer page, String playerName) {
@@ -89,6 +89,17 @@ public class MatchService {
         } else {
             return matchRepository.getFinishedMatchesByName(page, playerName);
         }
+    }
+
+    private UnfinishedMatch getUnfinishedMatch(UUID matchUuid) {
+        return unfinishedMatchesStorage.get(matchUuid)
+                .orElseThrow(
+                        () -> new NotFoundException(
+                                "Match with UUID " +
+                                        matchUuid +
+                                        " not found"
+                        )
+                );
     }
 
     private void saveMatch(UnfinishedMatch unfinishedMatch, UUID matchUuid) {
